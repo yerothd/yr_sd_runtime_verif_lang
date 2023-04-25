@@ -1,17 +1,22 @@
-/* 
- * Description: Recognize the 32-bit hexadecimal integer from stdin
- * Pattern: 0[xX]([0-9a-fA-F]{1,8})
- */
+/*
+* @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
+*/
+
 
 
 space									[ \t\n]+
+digit									[0-9]+
 alpha									[a-zA-Z]+
+alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
 in										IN
 notin									NOT_IN
-par_l									"{"
-par_r									"}"
-state_spec						STATE"("{alpha}")"
-MEALY_AUTOMATON_SPEC	mealy_automaton_spec
+l_par									"{"
+r_par									"}"
+db_column							{alpha_num}
+db_table							{alpha_num}
+prog_variable					{alpha_num}
+state									STATE
+MEALY_AUTOMATON_SPEC	mealy_automaton_spec{l_par}{alpha_num}{r_par} 
 
 
 %%

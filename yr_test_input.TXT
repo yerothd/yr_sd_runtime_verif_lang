@@ -1,0 +1,1 @@
+mealy_automaton_spec{var_1}
