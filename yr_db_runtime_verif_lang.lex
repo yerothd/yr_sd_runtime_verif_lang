@@ -8,6 +8,7 @@ space									[ \t\n]+
 digit									[0-9]+
 alpha									[a-zA-Z]+
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
+string								"'"[ \t\n_a-zA-Z0-9]*"'"
 in										IN
 notin									NOT_IN
 l_par									"{"
@@ -16,7 +17,7 @@ db_column							{alpha_num}
 db_table							{alpha_num}
 prog_variable					{alpha_num}
 state									STATE
-MEALY_AUTOMATON_SPEC	mealy_automaton_spec{l_par}{alpha_num}{r_par} 
+MEALY_AUTOMATON_SPEC	mealy_automaton_spec
 
 
 %%
