@@ -1,6 +1,6 @@
 
 %{
-#include "YR_HEADINGS.h"
+#include "YR_HEADING.h"
 int yyerror(char *s);
 int yylex(void);
 %}

@@ -4,7 +4,7 @@
 
 
 %{
-#include "YR_HEADINGS.h"
+#include "YR_HEADING.h"
 #include "YR_TOK.h"
 int yyerror(char *s);
 int yylineno = 1;
@@ -29,18 +29,20 @@ mealy_automaton_spec	mealy_automaton_spec
 
 
 %%
-{int_const}	{ yylval.int_val = atoi(yytext); return INTEGER_LITERAL; }
-"+"		{ yylval.op_val = new std::string(yytext); return PLUS; }
-"*"		{ yylval.op_val = new std::string(yytext); return MULT; }
+{space}									{ return SPACE_TOK; }
+{digit}									{ yylval.op_val = new std::string(yytext); return DIGIT_TOK; }
+{alpha}									{ yylval.op_val = new std::string(yytext); return ALPHA_TOK; }
+{alpha_num}							{ yylval.op_val = new std::string(yytext); return ALPHA_NUM_TOK; }
+{db_column}							{ yylval.op_val = new std::string(yytext); return DB_COLUMN_TOK; }
+{db_table}							{ yylval.op_val = new std::string(yytext); return DB_TABLE_TOK; }
+{prog_variable}					{ yylval.op_val = new std::string(yytext); return PROG_VARIABLE_TOK; }
+{in}										{ yylval.op_val = new std::string(yytext); return IN_TOK; }
+{notin}									{ yylval.op_val = new std::string(yytext); return NOT_IN_TOK; }
+{state}									{ yylval.op_val = new std::string(yytext); return STATE_TOK; }
+{mealy_automaton_spec}	{ yylval.op_val = new std::string(yytext); return MEALY_AUTOMATON_SPEC_TOK; }
+[\n]										{ yylineno++;	}
 
-[ \t]*		{}
-[\n]		{ yylineno++;	}
-
-.		{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
-
-
-{MEALY_AUTOMATON_SPEC}	printf("Found a MEALY AUTOMATON specification %s !", yytext);
-.												printf("");
+.												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%
 
 

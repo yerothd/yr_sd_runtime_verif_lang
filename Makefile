@@ -1,6 +1,6 @@
 # Makefile
 
-OBJS	= bison.o lex.o main.o
+OBJS	= bison.o lex.o yr_main.o
 
 CC	= g++
 CFLAGS	= -g -Wall -ansi -pedantic
@@ -23,11 +23,13 @@ bison.c:	yr_db_runtime_verif_lang.y
 		cp yr_db_runtime_verif_lang.tab.c bison.c
 		cmp -s yr_db_runtime_verif_lang.tab.h tok.h || cp yr_db_runtime_verif_lang.tab.h tok.h
 
-main.o:		main.cc
-		$(CC) $(CFLAGS) -c main.cc -o main.o
+yr_main.o:		yr_main.cc
+		$(CC) $(CFLAGS) -c yr_main.cc -o yr_main.o
 
-lex.o yac.o main.o	: YR_HEADING.h
-lex.o main.o		: YR_TOK.h
+lex.o yac.o yr_main.o	: YR_HEADING.h
+lex.o yr_main.o		: YR_TOK.h
+
+
 
 clean:
 	rm -f *.o \
