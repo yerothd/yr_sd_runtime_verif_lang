@@ -1,5 +1,9 @@
 # Makefile
 
+
+.PHONY: clean
+
+
 OBJS	= bison.o lex.o yr_main.o
 
 CC	= g++

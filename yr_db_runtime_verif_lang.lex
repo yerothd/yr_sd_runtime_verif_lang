@@ -7,7 +7,7 @@
 #include "YR_HEADING.h"
 #include "tok.h"
 int yyerror(char *s);
-int yylineno = 1;
+//int yylineno = 1;
 %}
 
 
