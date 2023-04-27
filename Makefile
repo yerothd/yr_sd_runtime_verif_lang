@@ -37,7 +37,6 @@ clean:
 		lex.c \
 		lex.yy.c \
 		bison.c \
-		YR_TOK.h \
 		yr_db_runtime_verif_lang.tab.c \
 		yr_db_runtime_verif_lang.tab.h \
 		yr_db_runtime_verif_lang.output
