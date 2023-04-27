@@ -27,7 +27,7 @@ yr_main.o:		yr_main.cc
 		$(CC) $(CFLAGS) -c yr_main.cc -o yr_main.o
 
 lex.o yac.o yr_main.o	: YR_HEADING.h
-lex.o yr_main.o		: YR_TOK.h
+lex.o yr_main.o		: tok.h
 
 
 
@@ -37,6 +37,7 @@ clean:
 		lex.c \
 		lex.yy.c \
 		bison.c \
+		tok.h \
 		yr_db_runtime_verif_lang.tab.c \
 		yr_db_runtime_verif_lang.tab.h \
 		yr_db_runtime_verif_lang.output
