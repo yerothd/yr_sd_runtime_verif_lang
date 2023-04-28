@@ -7,7 +7,7 @@ CC	= g++
 CFLAGS	= -g -Wall -ansi -pedantic
 
 yr_db_runtime_verif_lang:		$(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER -lfl
+		$(CC) $(CFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER 
 
 lex.o:		lex.c
 		$(CC) $(CFLAGS) -c lex.c -o lex.o

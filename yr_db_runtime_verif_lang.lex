@@ -2,6 +2,7 @@
 * @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
 */
 
+%option noyywrap
 
 %{
 #include "YR_HEADING.h"
@@ -41,6 +42,9 @@ mealy_automaton_spec	mealy_automaton_spec
 {state}									{ yylval.op_val = new std::string(yytext); return STATE_TOK; }
 {mealy_automaton_spec}	{ yylval.op_val = new std::string(yytext); return MEALY_AUTOMATON_SPEC_TOK; }
 [\n]										{ yylineno++;	}
+
+"+"											{ yylval.op_val = new std::string(yytext); return PLUS; }
+"*"											{ yylval.op_val = new std::string(yytext); return MULT; }
 
 .												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%
