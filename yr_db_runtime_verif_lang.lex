@@ -46,11 +46,11 @@ mealy_automaton_spec	mealy_automaton_spec
 %%
 
 
-int main(int argc, char* argv[])
+/*int main(int argc, char* argv[])
 {
   printf("Give me your input:\n");
   yylex();
 
   return 0;
-}
+}*/
 

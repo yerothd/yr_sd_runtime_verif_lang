@@ -1,16 +1,13 @@
 # Makefile
 
 
-.PHONY: clean
-
-
 OBJS	= bison.o lex.o yr_main.o
 
 CC	= g++
 CFLAGS	= -g -Wall -ansi -pedantic
 
 yr_db_runtime_verif_lang:		$(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -o yr_db_runtime_verif_lang -lfl
+		$(CC) $(CFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER -lfl
 
 lex.o:		lex.c
 		$(CC) $(CFLAGS) -c lex.c -o lex.o
