@@ -70,9 +70,13 @@ sut_state_spec : state_property_specification																						{ yr_printf("
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
 													;
-inside_algebra_set_specification : IN_TOK LEFT_PAREN_TOK prog_variable COMA_TOK db_table DOT_TOK db_column RIGHT_PAREN_TOK					{ }
+inside_algebra_set_specification : IN_TOK LEFT_PAREN_TOK 
+																 		prog_variable COMA_TOK db_table DOT_TOK db_column 
+																		RIGHT_PAREN_TOK																			{ }
 																 ;
-not_inside_algebra_set_specification : NOT_IN_TOK LEFT_PAREN_TOK prog_variable COMA_TOK db_table DOT_TOK db_column RIGHT_PAREN_TOK	{ }
+not_inside_algebra_set_specification : NOT_IN_TOK LEFT_PAREN_TOK 
+																		 		prog_variable COMA_TOK db_table DOT_TOK db_column 
+																				RIGHT_PAREN_TOK																	{ }
 																		 ;
 state_property_specification : STATE_TOK LEFT_PAREN_TOK STRING_TOK RIGHT_PAREN_TOK			{ yr_printf("state_property_specification"); }
 														 ;
