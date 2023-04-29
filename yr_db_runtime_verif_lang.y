@@ -72,8 +72,7 @@ sut_edge_mealy_automaton_spec : event_method_call																				{ }
 															;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
-sut_state_spec : state_property_specification																						{ }
-							 | state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
+sut_state_spec : state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
 							 ;
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
