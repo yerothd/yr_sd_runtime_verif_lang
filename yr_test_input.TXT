@@ -1,1 +1,1 @@
-mealy_automaton_spec yr_test_sd_mealy {STATE(d);IN_PRE(v,table.column)->[IN_SET_TRACE('delete',STATE(d))]/'select'->STATE(e);NOT_IN_POST(v,table.column).}
+yr_sd_mealy_automaton_spec yr_test_sd_mealy {STATE(d);IN_PRE(v,table.column)->[IN_SET_TRACE('delete',STATE(d))]/'select'->STATE(e);NOT_IN_POST(v,table.column).}

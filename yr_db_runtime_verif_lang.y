@@ -14,7 +14,7 @@ int yylex(void);
 %start	input 
 
 %token	<opt_val>	SPACE_TOK
-%token	<opt_val>	MEALY_AUTOMATON_SPEC_TOK
+%token	<opt_val>	YR_SD_MEALY_AUTOMATON_SPEC_TOK
 %token	<opt_val>	RIGHT_ARROW_TOK
 %token	<int_val>	DIGIT_TOK
 %token	<opt_val>	ALPHA_NUM_TOK
@@ -62,7 +62,7 @@ int yylex(void);
 %%
 
 input : /* empty */
-			| MEALY_AUTOMATON_SPEC_TOK SPACE_TOK ALPHA_NUM_TOK SPACE_TOK 
+			| YR_SD_MEALY_AUTOMATON_SPEC_TOK SPACE_TOK ALPHA_NUM_TOK SPACE_TOK 
 					LEFT_PARENTHESIS_TOK 
 						mealy_automaton_spec DOT_TOK	
 					RIGHT_PARENTHESIS_TOK																													{ yr_printf("mealy_automaton_spec"); }
