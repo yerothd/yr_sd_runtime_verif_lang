@@ -31,8 +31,10 @@ int yylex(void);
 %token	<opt_val>	STRING_TOK
 %token	<opt_val>	IN_SET_TRACE_TOK
 %token	<opt_val>	NOT_IN_SET_TRACE_TOK
-%token	<opt_val>	IN_TOK
-%token	<opt_val>	NOT_IN_TOK
+%token	<opt_val>	IN_PRE_TOK
+%token	<opt_val>	IN_POST_TOK
+%token	<opt_val>	NOT_IN_PRE_TOK
+%token	<opt_val>	NOT_IN_POST_TOK
 %token	<opt_val>	STATE_TOK
 
 %type	<opt_val>	mealy_automaton_spec
@@ -40,6 +42,8 @@ int yylex(void);
 %type	<opt_val>	state_property_specification
 %type	<opt_val>	sut_edge_state_spec
 %type	<opt_val>	algebra_set_specification
+%type	<opt_val>	in_spec
+%type	<opt_val>	not_in_spec
 %type	<opt_val>	inside_algebra_set_specification
 %type	<opt_val>	not_inside_algebra_set_specification
 %type	<opt_val>	db_table
@@ -54,9 +58,9 @@ int yylex(void);
 %%
 
 input : /* empty */
-			| MEALY_AUTOMATON_SPEC_TOK 
+			| MEALY_AUTOMATON_SPEC_TOK SPACE_TOK ALPHA_NUM_TOK SPACE_TOK 
 					LEFT_PARENTHESIS_TOK 
-						mealy_automaton_spec	
+						mealy_automaton_spec DOT_TOK	
 					RIGHT_PARENTHESIS_TOK																													{ yr_printf("mealy_automaton_spec"); }
 			;
 mealy_automaton_spec : sut_state_spec 																									{ }
@@ -74,26 +78,32 @@ sut_state_spec : state_property_specification																						{ }
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
 													;
-inside_algebra_set_specification : IN_TOK 
+in_spec : IN_PRE_TOK																																		{ }
+				| IN_POST_TOK																																		{ }
+				;
+not_in_spec : NOT_IN_PRE_TOK																														{ }
+						| NOT_IN_POST_TOK																														{ }
+						;
+inside_algebra_set_specification : in_spec 
 																 		LEFT_PAREN_TOK 
 																 			prog_variable COMA_TOK db_table DOT_TOK db_column 
 																		RIGHT_PAREN_TOK																			{ }
 																 ;
-not_inside_algebra_set_specification : NOT_IN_TOK 
+not_inside_algebra_set_specification : not_in_spec
 																		 		LEFT_PAREN_TOK 
 																		 			prog_variable COMA_TOK db_table DOT_TOK db_column 
 																				RIGHT_PAREN_TOK																	{ }
 																		 ;
 state_property_specification : STATE_TOK 
 														 		LEFT_PAREN_TOK 
-																	STRING_TOK 
+																	ALPHA_NUM_TOK 
 																RIGHT_PAREN_TOK																					{ yr_printf("state_property_specification"); }
 														 ;
-prog_variable : STRING_TOK		{}
+prog_variable : ALPHA_NUM_TOK		{ }
 				 ;
-db_table : STRING_TOK					{}
+db_table : ALPHA_NUM_TOK				{ }
 				 ;
-db_column : STRING_TOK				{}
+db_column : ALPHA_NUM_TOK				{ }
 					;
 
 /*

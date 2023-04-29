@@ -17,8 +17,10 @@ right_arrow						"->"
 mealy_automaton_spec	"mealy_automaton_spec"
 in_set_trace					"IN_SET_TRACE"
 not_in_set_trace			"NOT_IN_SET_TRACE"
-in										"IN"
-notin									"NOT_IN"
+in_pre								"IN_PRE"
+in_post								"IN_POST"
+notin_pre							"NOT_IN_PRE"
+notin_post						"NOT_IN_POST"
 state									"STATE"
 string								"'"[ \t\n_a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
@@ -41,8 +43,10 @@ r_par									"}"
 {right_arrow}						{ yylval.opt_val = new std::string(yytext); return RIGHT_ARROW_TOK; }
 {in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
 {not_in_set_trace}			{ yylval.opt_val = new std::string(yytext); return NOT_IN_SET_TRACE_TOK; }
-{in}										{ yylval.opt_val = new std::string(yytext); return IN_TOK; }
-{notin}									{ yylval.opt_val = new std::string(yytext); return NOT_IN_TOK; }
+{in_pre}								{ yylval.opt_val = new std::string(yytext); return IN_PRE_TOK; }
+{in_post}								{ yylval.opt_val = new std::string(yytext); return IN_POST_TOK; }
+{notin_pre}							{ yylval.opt_val = new std::string(yytext); return NOT_IN_PRE_TOK; }
+{notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
 {state}									{ yylval.opt_val = new std::string(yytext); return STATE_TOK; }
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
 {alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }
