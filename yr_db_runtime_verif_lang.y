@@ -14,6 +14,7 @@ int yylex(void);
 %start	input 
 
 %token	<opt_val>	SPACE_TOK
+%token	<opt_val>	MEALY_AUTOMATON_SPEC_TOK
 %token	<opt_val>	RIGHT_ARROW_TOK
 %token	<int_val>	DIGIT_TOK
 %token	<opt_val>	ALPHA_NUM_TOK
@@ -35,6 +36,7 @@ int yylex(void);
 %token	<opt_val>	STATE_TOK
 
 %type	<opt_val>	mealy_automaton_spec
+%type	<opt_val>	body_spec
 %type	<opt_val>	state_property_specification
 %type	<opt_val>	sut_edge_state_spec
 %type	<opt_val>	algebra_set_specification
@@ -52,38 +54,46 @@ int yylex(void);
 %%
 
 input : /* empty */
-			| mealy_automaton_spec																														{ yr_printf("mealy_automaton_spec"); }
+			| MEALY_AUTOMATON_SPEC_TOK 
+					LEFT_PARENTHESIS_TOK 
+						mealy_automaton_spec	
+					RIGHT_PARENTHESIS_TOK																													{ yr_printf("mealy_automaton_spec"); }
 			;
-mealy_automaton_spec : sut_state_spec 																									{ yr_printf("m1"); }
-										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 										{ yr_printf("m2"); }
+mealy_automaton_spec : sut_state_spec 																									{ }
+										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 							{ }
 										 ;
-sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automaton_spec			{ }
+sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automaton_spec{ }
 										;
 sut_edge_mealy_automaton_spec : event_method_call																				{ }
 															;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
-sut_state_spec : state_property_specification																						{ yr_printf("sut_state_spec1"); }
-							 | state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ yr_printf("sut_state_spec2"); }
+sut_state_spec : state_property_specification																						{ }
+							 | state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
 							 ;
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
 													;
-inside_algebra_set_specification : IN_TOK LEFT_PAREN_TOK 
-																 		prog_variable COMA_TOK db_table DOT_TOK db_column 
+inside_algebra_set_specification : IN_TOK 
+																 		LEFT_PAREN_TOK 
+																 			prog_variable COMA_TOK db_table DOT_TOK db_column 
 																		RIGHT_PAREN_TOK																			{ }
 																 ;
-not_inside_algebra_set_specification : NOT_IN_TOK LEFT_PAREN_TOK 
-																		 		prog_variable COMA_TOK db_table DOT_TOK db_column 
+not_inside_algebra_set_specification : NOT_IN_TOK 
+																		 		LEFT_PAREN_TOK 
+																		 			prog_variable COMA_TOK db_table DOT_TOK db_column 
 																				RIGHT_PAREN_TOK																	{ }
 																		 ;
-state_property_specification : STATE_TOK LEFT_PAREN_TOK STRING_TOK RIGHT_PAREN_TOK			{ yr_printf("state_property_specification"); }
+state_property_specification : STATE_TOK 
+														 		LEFT_PAREN_TOK 
+																	STRING_TOK 
+																RIGHT_PAREN_TOK																					{ yr_printf("state_property_specification"); }
 														 ;
 prog_variable : STRING_TOK		{}
 				 ;
-db_table : STRING_TOK		{}
+db_table : STRING_TOK					{}
 				 ;
-db_column : STRING_TOK	{}
+db_column : STRING_TOK				{}
 					;
 
 /*

@@ -14,6 +14,7 @@ int yyerror(char *s);
 
 space									[ \t\n]+
 right_arrow						"->"
+mealy_automaton_spec	"mealy_automaton_spec"
 in_set_trace					"IN_SET_TRACE"
 not_in_set_trace			"NOT_IN_SET_TRACE"
 in										"IN"
@@ -36,6 +37,7 @@ r_par									"}"
 
 %%
 {space}									{ return SPACE_TOK; }
+{mealy_automaton_spec}	{ yylval.opt_val = new std::string(yytext); return MEALY_AUTOMATON_SPEC_TOK; }
 {right_arrow}						{ yylval.opt_val = new std::string(yytext); return RIGHT_ARROW_TOK; }
 {in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
 {not_in_set_trace}			{ yylval.opt_val = new std::string(yytext); return NOT_IN_SET_TRACE_TOK; }
