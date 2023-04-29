@@ -25,6 +25,7 @@ state									"STATE"
 string								"'"[ \t\n_a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
 digit									[0-9]+
+slash									"/"
 dot										"."
 coma									","
 colon									":"
@@ -51,6 +52,7 @@ r_par									"}"
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
 {alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }
 {digit}									{ yylval.int_val = atoi(yytext); return DIGIT_TOK; }
+{slash}									{ yylval.opt_val = new std::string(yytext); return SLASH_TOK; }
 {dot}										{ yylval.opt_val = new std::string(yytext); return DOT_TOK; }
 {coma}									{ yylval.opt_val = new std::string(yytext); return COMA_TOK; }
 {colon}									{ yylval.opt_val = new std::string(yytext); return COLON_TOK; }

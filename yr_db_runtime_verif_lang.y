@@ -24,6 +24,7 @@ int yylex(void);
 %token	<opt_val>	RIGHT_PAREN_TOK
 %token	<opt_val>	LEFT_PARENTHESIS_TOK
 %token	<opt_val>	RIGHT_PARENTHESIS_TOK
+%token	<opt_val>	SLASH_TOK
 %token	<opt_val>	DOT_TOK
 %token	<opt_val>	COLON_TOK
 %token	<opt_val>	COMA_TOK
@@ -38,17 +39,20 @@ int yylex(void);
 %token	<opt_val>	STATE_TOK
 
 %type	<opt_val>	mealy_automaton_spec
-%type	<opt_val>	body_spec
 %type	<opt_val>	state_property_specification
 %type	<opt_val>	sut_edge_state_spec
 %type	<opt_val>	algebra_set_specification
 %type	<opt_val>	in_spec
 %type	<opt_val>	not_in_spec
+%type	<opt_val>	in_set_trace
+%type	<opt_val>	not_in_set_trace
+%type	<opt_val>	trace_specification
 %type	<opt_val>	inside_algebra_set_specification
 %type	<opt_val>	not_inside_algebra_set_specification
 %type	<opt_val>	db_table
 %type	<opt_val>	db_column
 %type	<opt_val>	prog_variable
+%type <opt_val> edge_mealy_automaton_guard_cond
 %type	<opt_val>	sut_edge_mealy_automaton_spec
 %type	<opt_val>	event_method_call
 
@@ -68,8 +72,26 @@ mealy_automaton_spec : sut_state_spec 																									{ }
 										 ;
 sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automaton_spec{ }
 										;
-sut_edge_mealy_automaton_spec : event_method_call																				{ }
+sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_method_call				{ }
 															;
+edge_mealy_automaton_guard_cond : /* empty */
+																| LEFT_INTERVAL_TOK 
+																		trace_specification
+																	RIGHT_INTERVAL_TOK SLASH_TOK 													{ }
+																; 																					
+trace_specification : in_set_trace
+									 	| not_in_set_trace
+										;	
+in_set_trace : IN_SET_TRACE_TOK
+						 			LEFT_PAREN_TOK 
+										event_method_call COMA_TOK state_property_specification
+									RIGHT_PAREN_TOK
+						 ;
+not_in_set_trace : NOT_IN_SET_TRACE_TOK
+						 			LEFT_PAREN_TOK 
+										event_method_call COMA_TOK state_property_specification
+									RIGHT_PAREN_TOK
+								 ;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
 sut_state_spec : state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
@@ -104,16 +126,6 @@ db_table : ALPHA_NUM_TOK				{ }
 				 ;
 db_column : ALPHA_NUM_TOK				{ }
 					;
-
-/*
-trace_specification : LEFT_INTERVAL_TOK IN_SET_TRACE_TOK LEFT_PAREN_TOK COMA_TOK  "["in_set_trace(prog_variable, prog_trace)"]" |
-		        "["not_in_set_trace(prog_variable, prog_trace)"]"
-
-edge_mealy_automaton_guard_cond ::= "["trace_specification"]"
-*/
-
-
-
 %%
 
 void yr_printf(string a_val_str)
