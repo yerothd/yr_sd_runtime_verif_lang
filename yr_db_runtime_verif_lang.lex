@@ -13,38 +13,46 @@ int yyerror(char *s);
 
 
 space									[ \t\n]+
-digit									[0-9]+
-alpha									[a-zA-Z]+
-alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
+in_set_trace					"IN_SET_TRACE"
+not_in_set_trace			"NOT_IN_SET_TRACE"
+in										"IN"
+notin									"NOT_IN"
+state									"STATE"
 string								"'"[ \t\n_a-zA-Z0-9]*"'"
+alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
+digit									[0-9]+
+dot										"."
+coma									","
+colon									":"
+semicolon							";"
+l_interval						"["
+r_interval						"]"
+l_paren								"("
+r_paren								")"
 l_par									"{"
 r_par									"}"
-db_column							{alpha_num}
-db_table							{alpha_num}
-prog_variable					{alpha_num}
-in										IN
-notin									NOT_IN
-state									STATE
-mealy_automaton_spec	mealy_automaton_spec
-
 
 
 %%
 {space}									{ return SPACE_TOK; }
-{digit}									{ yylval.op_val = new std::string(yytext); return DIGIT_TOK; }
-{alpha}									{ yylval.op_val = new std::string(yytext); return ALPHA_TOK; }
-{alpha_num}							{ yylval.op_val = new std::string(yytext); return ALPHA_NUM_TOK; }
-{db_column}							{ yylval.op_val = new std::string(yytext); return DB_COLUMN_TOK; }
-{db_table}							{ yylval.op_val = new std::string(yytext); return DB_TABLE_TOK; }
-{prog_variable}					{ yylval.op_val = new std::string(yytext); return PROG_VARIABLE_TOK; }
-{in}										{ yylval.op_val = new std::string(yytext); return IN_TOK; }
-{notin}									{ yylval.op_val = new std::string(yytext); return NOT_IN_TOK; }
-{state}									{ yylval.op_val = new std::string(yytext); return STATE_TOK; }
-{mealy_automaton_spec}	{ yylval.op_val = new std::string(yytext); return MEALY_AUTOMATON_SPEC_TOK; }
-[\n]										{ yylineno++;	}
-
-"+"											{ yylval.op_val = new std::string(yytext); return PLUS; }
-"*"											{ yylval.op_val = new std::string(yytext); return MULT; }
+{in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
+{not_in_set_trace}			{ yylval.opt_val = new std::string(yytext); return NOT_IN_SET_TRACE_TOK; }
+{in}										{ yylval.opt_val = new std::string(yytext); return IN_TOK; }
+{notin}									{ yylval.opt_val = new std::string(yytext); return NOT_IN_TOK; }
+{state}									{ yylval.opt_val = new std::string(yytext); return STATE_TOK; }
+{string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
+{alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }
+{digit}									{ yylval.int_val = atoi(yytext); return DIGIT_TOK; }
+{dot}										{ yylval.opt_val = new std::string(yytext); return DOT_TOK; }
+{coma}									{ yylval.opt_val = new std::string(yytext); return COMA_TOK; }
+{colon}									{ yylval.opt_val = new std::string(yytext); return COLON_TOK; }
+{semicolon}							{ yylval.opt_val = new std::string(yytext); return SEMI_COLON_TOK; }
+{l_interval}						{ yylval.opt_val = new std::string(yytext); return LEFT_INTERVAL_TOK; }
+{r_interval}						{ yylval.opt_val = new std::string(yytext); return RIGHT_INTERVAL_TOK; }
+{l_paren}								{ yylval.opt_val = new std::string(yytext); return LEFT_PAREN_TOK; }
+{r_paren}								{ yylval.opt_val = new std::string(yytext); return RIGHT_PAREN_TOK; }
+{l_par}									{ yylval.opt_val = new std::string(yytext); return SEMI_COLON_TOK; }
+{r_par}									{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
 
 .												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%
