@@ -51,8 +51,8 @@ r_par									"}"
 {r_interval}						{ yylval.opt_val = new std::string(yytext); return RIGHT_INTERVAL_TOK; }
 {l_paren}								{ yylval.opt_val = new std::string(yytext); return LEFT_PAREN_TOK; }
 {r_paren}								{ yylval.opt_val = new std::string(yytext); return RIGHT_PAREN_TOK; }
-{l_par}									{ yylval.opt_val = new std::string(yytext); return SEMI_COLON_TOK; }
-{r_par}									{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
+{l_par}									{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
+{r_par}									{ yylval.opt_val = new std::string(yytext); return RIGHT_PARENTHESIS_TOK; }
 
 .												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%

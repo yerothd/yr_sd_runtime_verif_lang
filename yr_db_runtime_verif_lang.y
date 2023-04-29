@@ -13,7 +13,6 @@ int yylex(void);
 
 %start	input 
 
-%token	<int_val>	INTEGER_LITERAL
 %token	<opt_val>	SPACE_TOK
 %token	<int_val>	DIGIT_TOK
 %token	<opt_val>	ALPHA_NUM_TOK
@@ -44,10 +43,9 @@ int yylex(void);
 %type	<opt_val>	db_column
 %type	<opt_val>	prog_variable
 %type	<opt_val>	sut_edge_mealy_automaton_spec
-%type	<opt_val>	edge_mealy_automaton_event_method_call
 %type	<opt_val>	event_method_call
 
-%left	SEMI_COLON_COLON_TOK
+%left	SEMI_COLON_TOK
 %left	COLON_TOK
 
 %%
