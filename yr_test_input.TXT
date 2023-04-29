@@ -1,1 +1,6 @@
-mealy_automaton_spec{STATE('d');IN('v','table'.'column')->'select'->STATE('e')->'delete'->STATE('a')}
+mealy_automaton_spec
+{
+ STATE('d');IN_PRE('v','table'.'column')
+  -> [IN_TRACE_SET('delete', STATE('d'))] / 'select' ->
+   STATE('e');NOT_IN_POST('v','table'.'column').
+}
