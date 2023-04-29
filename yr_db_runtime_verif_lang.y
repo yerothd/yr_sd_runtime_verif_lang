@@ -14,6 +14,7 @@ int yylex(void);
 %start	input 
 
 %token	<opt_val>	SPACE_TOK
+%token	<opt_val>	RIGHT_ARROW_TOK
 %token	<int_val>	DIGIT_TOK
 %token	<opt_val>	ALPHA_NUM_TOK
 %token	<opt_val>	LEFT_INTERVAL_TOK
@@ -46,7 +47,7 @@ int yylex(void);
 %type	<opt_val>	event_method_call
 
 %left	SEMI_COLON_TOK
-%left	COLON_TOK
+%left	RIGHT_ARROW_TOK
 
 %%
 
@@ -54,9 +55,9 @@ input : /* empty */
 			| mealy_automaton_spec																														{ yr_printf("mealy_automaton_spec"); }
 			;
 mealy_automaton_spec : sut_state_spec 																									{ yr_printf("m1"); }
-										 | sut_state_spec COLON_TOK sut_edge_state_spec 										{ yr_printf("m2"); }
+										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 										{ yr_printf("m2"); }
 										 ;
-sut_edge_state_spec : sut_edge_mealy_automaton_spec COLON_TOK mealy_automaton_spec			{ }
+sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automaton_spec			{ }
 										;
 sut_edge_mealy_automaton_spec : event_method_call																				{ }
 															;

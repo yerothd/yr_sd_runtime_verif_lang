@@ -1,1 +1,1 @@
-STATE('d');IN('v','table'.'column'):'select':STATE('e'):'delete':STATE('a')
+STATE('d');IN('v','table'.'column')->'select'->STATE('e')->'delete'->STATE('a')
