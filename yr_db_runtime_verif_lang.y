@@ -58,7 +58,7 @@ int yylex(void);
 %type	<opt_val>	sut_edge_mealy_automaton_spec
 %type	<opt_val>	event_method_call
 
-%left	SEMI_COLON_TOK
+%left	COLON_TOK
 %left	RIGHT_ARROW_TOK
 
 %%
@@ -96,9 +96,9 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK
 								 ;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
-sut_state_spec : state_property_specification	SEMI_COLON_TOK algebra_set_specification				{ }
-							 | final_state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
-							 | start_state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
+sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
+							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
+							 | start_state_property_specification	COLON_TOK algebra_set_specification	{ }
 							 ;
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
