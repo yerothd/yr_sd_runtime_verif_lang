@@ -64,7 +64,7 @@ int yylex(void);
 %%
 
 input : /* empty */
-			| YR_SD_MEALY_AUTOMATON_SPEC_TOK SPACE_TOK ALPHA_NUM_TOK SPACE_TOK 
+			| YR_SD_MEALY_AUTOMATON_SPEC_TOK ALPHA_NUM_TOK
 					LEFT_PARENTHESIS_TOK 
 						mealy_automaton_spec DOT_TOK	
 					RIGHT_PARENTHESIS_TOK																													{ yr_printf("mealy_automaton_spec"); }

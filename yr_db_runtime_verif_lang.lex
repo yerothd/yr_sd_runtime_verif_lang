@@ -2,6 +2,7 @@
 * @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
 */
 
+%option noinput nounput nodefault yylineno
 %option noyywrap
 
 %{
@@ -41,7 +42,7 @@ r_par									"}"
 
 
 %%
-{space}									{ return SPACE_TOK; }
+{space}            			; /* Do nothing */
 {mealy_automaton_spec}	{ yylval.opt_val = new std::string(yytext); return YR_SD_MEALY_AUTOMATON_SPEC_TOK; }
 {right_arrow}						{ yylval.opt_val = new std::string(yytext); return RIGHT_ARROW_TOK; }
 {in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
@@ -67,7 +68,6 @@ r_par									"}"
 {r_paren}								{ yylval.opt_val = new std::string(yytext); return RIGHT_PAREN_TOK; }
 {l_par}									{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
 {r_par}									{ yylval.opt_val = new std::string(yytext); return RIGHT_PARENTHESIS_TOK; }
-
 .												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%
 
