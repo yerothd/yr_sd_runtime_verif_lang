@@ -3,11 +3,29 @@
 
 OBJS	= bison.o lex.o yr_main.o
 
-CC	= g++
-CFLAGS	= -g -Wall -ansi -pedantic
+CC	= g++  
+
+CFLAGS	= -std=c++11 -g -Wall -pedantic \
+					-fPIC -Wextra -pipe \
+					-D_REENTRANT -DQT_NO_VERSION_TAGGING -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB \
+					-Iyr_sd_runtime_verif \
+					-I/usr/lib/x86_64-linux-gnu/ \
+					-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
+					-I/usr/include/x86_64-linux-gnu/qt5 
+					
+
+LINKFLAGS	= -std=c++11 -g -Wall -pedantic \
+					-fPIC -Wextra -pipe \
+					-Llib \
+					-L/usr/lib/x86_64-linux-gnu \
+					-lQt5Sql \
+					-lQt5Gui \
+					-lQt5Core \
+					-lyr_sd_runtime_verif
+
 
 yr_db_runtime_verif_lang:		$(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER 
+		$(CC) $(LINKFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER 
 
 lex.o:		lex.c
 		$(CC) $(CFLAGS) -c lex.c -o lex.o
