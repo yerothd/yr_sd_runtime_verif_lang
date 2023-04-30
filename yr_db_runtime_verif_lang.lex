@@ -21,6 +21,8 @@ in_pre								"IN_PRE"
 in_post								"IN_POST"
 notin_pre							"NOT_IN_PRE"
 notin_post						"NOT_IN_POST"
+final_state						"FINAL_STATE"
+start_state						"START_STATE"
 state									"STATE"
 string								"'"[ \t\n_a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
@@ -48,6 +50,8 @@ r_par									"}"
 {in_post}								{ yylval.opt_val = new std::string(yytext); return IN_POST_TOK; }
 {notin_pre}							{ yylval.opt_val = new std::string(yytext); return NOT_IN_PRE_TOK; }
 {notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
+{final_state}						{ yylval.opt_val = new std::string(yytext); return FINAL_STATE_TOK; }
+{start_state}						{ yylval.opt_val = new std::string(yytext); return START_STATE_TOK; }
 {state}									{ yylval.opt_val = new std::string(yytext); return STATE_TOK; }
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
 {alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }

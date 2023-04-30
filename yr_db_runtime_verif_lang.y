@@ -36,6 +36,8 @@ int yylex(void);
 %token	<opt_val>	IN_POST_TOK
 %token	<opt_val>	NOT_IN_PRE_TOK
 %token	<opt_val>	NOT_IN_POST_TOK
+%token	<opt_val>	START_STATE_TOK
+%token	<opt_val>	FINAL_STATE_TOK
 %token	<opt_val>	STATE_TOK
 
 %type	<opt_val>	mealy_automaton_spec
@@ -94,7 +96,9 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK
 								 ;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
-sut_state_spec : state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
+sut_state_spec : state_property_specification	SEMI_COLON_TOK algebra_set_specification				{ }
+							 | final_state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
+							 | start_state_property_specification	SEMI_COLON_TOK algebra_set_specification	{ }
 							 ;
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
@@ -120,6 +124,16 @@ state_property_specification : STATE_TOK
 																	ALPHA_NUM_TOK 
 																RIGHT_PAREN_TOK																					{ yr_printf("state_property_specification"); }
 														 ;
+final_state_property_specification : FINAL_STATE_TOK 
+														 					LEFT_PAREN_TOK 
+																				ALPHA_NUM_TOK 
+																			RIGHT_PAREN_TOK																		{ yr_printf("final_state_property_specification"); }
+														 			 ;
+start_state_property_specification : START_STATE_TOK 
+														 					LEFT_PAREN_TOK 
+																				ALPHA_NUM_TOK 
+																			RIGHT_PAREN_TOK																		{ yr_printf("start_state_property_specification"); }
+														 			 ;
 prog_variable : ALPHA_NUM_TOK		{ }
 				 ;
 db_table : ALPHA_NUM_TOK				{ }
