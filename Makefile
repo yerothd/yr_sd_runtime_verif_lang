@@ -9,7 +9,7 @@ OBJS	= bison.o lex.o yr_main.o \
 
 CC	= g++  
 
-CFLAGS	= -std=c++11 -g -Wall -pedantic \
+CFLAGS	= -g -Wall -pedantic \
 					-fPIC -Wextra -pipe \
 					-D_REENTRANT -DQT_NO_VERSION_TAGGING -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB \
 					-Isrc \
