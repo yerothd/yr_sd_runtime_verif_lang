@@ -11,7 +11,8 @@
 
 using namespace std;
 
-#include "yr_sd_runtime_verif/YR_CPP_MONITOR.hpp"
+
+#include "src/YR_SPEC_STMT_MEALY_AUTOMATON.hpp"
 
 #include <stdlib.h>
 

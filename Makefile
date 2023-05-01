@@ -1,31 +1,39 @@
 # Makefile
 
+SRC = src
 
-OBJS	= bison.o lex.o yr_main.o
+OBJ_DIR = obj
+
+OBJS	= bison.o lex.o yr_main.o \
+		  ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
 
 CC	= g++  
 
 CFLAGS	= -std=c++11 -g -Wall -pedantic \
 					-fPIC -Wextra -pipe \
 					-D_REENTRANT -DQT_NO_VERSION_TAGGING -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB \
-					-Iyr_sd_runtime_verif \
+					-Isrc \
+					-I/usr/lib/x86_64-linux-gnu/ \
 					-I/usr/lib/x86_64-linux-gnu/ \
 					-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
 					-I/usr/include/x86_64-linux-gnu/qt5 
 					
 
-LINKFLAGS	= -std=c++11 -g -Wall -pedantic \
-					-fPIC -Wextra -pipe \
-					-Llib \
-					-L/usr/lib/x86_64-linux-gnu \
-					-lQt5Sql \
-					-lQt5Gui \
-					-lQt5Core \
-					-lyr_sd_runtime_verif
+LINKFLAGS	= -Llib -lyr_sd_runtime_verif \
+			  -L/usr/lib/x86_64-linux-gnu \
+			  /usr/lib/x86_64-linux-gnu/libQt5Sql.so \
+			  /usr/lib/x86_64-linux-gnu/libQt5Core.so
+					
 
 
 yr_sd_runtime_verif_lang:		$(OBJS)
-		$(CC) $(LINKFLAGS) $(OBJS) -o yr_sd_runtime_verif_lang_comp 
+		$(CC) -o yr_sd_runtime_verif_lang_comp $(OBJS) $(LINKFLAGS) 
+
+
+YR_SPEC_STMT_MEALY_AUTOMATON.o:		${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp
+		mkdir -p ${OBJ_DIR}
+		$(CC) $(CFLAGS) -c ${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp -o ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
+
 
 lex.o:		lex.c
 		$(CC) $(CFLAGS) -c lex.c -o lex.o

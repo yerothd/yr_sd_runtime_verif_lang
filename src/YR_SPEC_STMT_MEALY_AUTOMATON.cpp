@@ -1,0 +1,29 @@
+/**
+ * @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
+ *
+ * 		YR_SPEC_STMT_MEALY_AUTOMATON.cpp
+ */
+
+
+#include "YR_SPEC_STMT_MEALY_AUTOMATON.hpp"
+
+#include "yr_sd_runtime_verif/YR_CPP_MONITOR.hpp"
+
+
+
+YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
+{
+    _a_monitor_mealy_machine = 
+		YR_CPP_MONITOR::CREATE_MONITOR();	
+}
+
+
+YR_SPEC_STMT_MEALY_AUTOMATON::~YR_SPEC_STMT_MEALY_AUTOMATON()
+{
+	DELETE_POINTER_YR_NOT_NULL(_a_monitor_mealy_machine);
+}
+
+
+void YR_SPEC_STMT_MEALY_AUTOMATON::process_statement()
+{
+}
