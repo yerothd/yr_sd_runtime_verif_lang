@@ -13,8 +13,7 @@
 
 YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
 {
-    _a_monitor_mealy_machine = 
-		YR_CPP_MONITOR::CREATE_MONITOR();	
+    _a_monitor_mealy_machine = YR_CPP_MONITOR::CREATE_MONITOR();	
 }
 
 
@@ -24,6 +23,11 @@ YR_SPEC_STMT_MEALY_AUTOMATON::~YR_SPEC_STMT_MEALY_AUTOMATON()
 }
 
 
-void YR_SPEC_STMT_MEALY_AUTOMATON::process_statement()
+void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_mealy_automaton_spec(char *YR_SD_MEALY_AUTOMATON_SPEC_TOK)
 {
+	if (0 != _a_monitor_mealy_machine)
+	{
+		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_TOK));
+		QDEBUG_STRING_OUTPUT_2("YR_SD_MEALY_AUTOMATON_SPEC_TOK", _a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME());
+	}
 }

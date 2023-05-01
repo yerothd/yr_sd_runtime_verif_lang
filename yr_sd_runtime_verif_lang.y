@@ -1,10 +1,19 @@
 
 %{
 #include "YR_HEADING.h"
+
 void yr_printf(string a_val_str);
+
 int yyerror(char *s);
+
 int yylex(void);
+
+void YR_INIT();
+
+YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT; 
+
 %}
+
 
 %union{
   int		int_val;
@@ -142,11 +151,32 @@ db_column : ALPHA_NUM_TOK				{ }
 					;
 %%
 
+//a_spec_stmt_ROOT->PROCESS_mealy_automaton_spec(yylval.opt_val->c_str());
+
+void YR_INIT()
+{
+	static bool init_zeichen = true;
+
+	if (init_zeichen)
+	{
+		YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT = 
+			new YR_SPEC_STMT_MEALY_AUTOMATON;
+
+		init_zeichen = false;
+	}
+}
+
+
 void yr_printf(string a_val_str)
 {
 	extern char *yytext;	// defined and maintained in lex.c
-	printf("%s: %s\n", a_val_str.c_str(), yytext);
+	
+	if (0 != yylval.opt_val)
+	{
+		printf("%s: %s\n", a_val_str.c_str(), yylval.opt_val->c_str());
+	}
 }
+
 
 int yyerror(string s)
 {
@@ -158,9 +188,9 @@ int yyerror(string s)
   exit(1);
 }
 
+
 int yyerror(char *s)
 {
   return yyerror(string(s));
 }
-
 
