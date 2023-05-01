@@ -13,16 +13,14 @@ CFLAGS	= -std=c++11 -g -Wall -pedantic \
 					-fPIC -Wextra -pipe \
 					-D_REENTRANT -DQT_NO_VERSION_TAGGING -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB \
 					-Isrc \
-					-I/usr/lib/x86_64-linux-gnu/ \
-					-I/usr/lib/x86_64-linux-gnu/ \
+					-I/usr/lib/x86_64-linux-gnu \
+					-I/usr/lib/x86_64-linux-gnu \
 					-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
 					-I/usr/include/x86_64-linux-gnu/qt5 
 					
 
 LINKFLAGS	= -Llib -lyr_sd_runtime_verif \
-			  -L/usr/lib/x86_64-linux-gnu \
-			  /usr/lib/x86_64-linux-gnu/libQt5Sql.so \
-			  /usr/lib/x86_64-linux-gnu/libQt5Core.so
+			  -L/usr/lib/x86_64-linux-gnu -lQt5Sql -lQt5Core
 					
 
 
@@ -30,7 +28,7 @@ yr_sd_runtime_verif_lang:		$(OBJS)
 		$(CC) -o yr_sd_runtime_verif_lang_comp $(OBJS) $(LINKFLAGS) 
 
 
-YR_SPEC_STMT_MEALY_AUTOMATON.o:		${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp
+${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o:		${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp
 		mkdir -p ${OBJ_DIR}
 		$(CC) $(CFLAGS) -c ${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp -o ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
 
@@ -59,7 +57,8 @@ lex.o yr_main.o		: tok.h
 
 
 clean:
-	rm -f *.o \
+	rm -f ${OBJ_DIR}/* \
+		*.o \
 		*~ \
 		lex.c \
 		lex.yy.c \
