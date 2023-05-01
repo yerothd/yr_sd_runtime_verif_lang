@@ -24,23 +24,23 @@ LINKFLAGS	= -std=c++11 -g -Wall -pedantic \
 					-lyr_sd_runtime_verif
 
 
-yr_db_runtime_verif_lang:		$(OBJS)
-		$(CC) $(LINKFLAGS) $(OBJS) -o yr_db_runtime_verif_lang_COMPILER 
+yr_sd_runtime_verif_lang:		$(OBJS)
+		$(CC) $(LINKFLAGS) $(OBJS) -o yr_sd_runtime_verif_lang_comp 
 
 lex.o:		lex.c
 		$(CC) $(CFLAGS) -c lex.c -o lex.o
 
-lex.c:		yr_db_runtime_verif_lang.lex
-		flex yr_db_runtime_verif_lang.lex
+lex.c:		yr_sd_runtime_verif_lang.lex
+		flex yr_sd_runtime_verif_lang.lex
 		cp lex.yy.c lex.c
 
 bison.o:	bison.c
 		$(CC) $(CFLAGS) -c bison.c -o bison.o
 
-bison.c:	yr_db_runtime_verif_lang.y
-		bison -d -v yr_db_runtime_verif_lang.y
-		cp yr_db_runtime_verif_lang.tab.c bison.c
-		cmp -s yr_db_runtime_verif_lang.tab.h tok.h || cp yr_db_runtime_verif_lang.tab.h tok.h
+bison.c:	yr_sd_runtime_verif_lang.y
+		bison -d -v yr_sd_runtime_verif_lang.y
+		cp yr_sd_runtime_verif_lang.tab.c bison.c
+		cmp -s yr_sd_runtime_verif_lang.tab.h tok.h || cp yr_sd_runtime_verif_lang.tab.h tok.h
 
 yr_main.o:		yr_main.cc
 		$(CC) $(CFLAGS) -c yr_main.cc -o yr_main.o
@@ -57,7 +57,7 @@ clean:
 		lex.yy.c \
 		bison.c \
 		tok.h \
-		yr_db_runtime_verif_lang.tab.c \
-		yr_db_runtime_verif_lang.tab.h \
-		yr_db_runtime_verif_lang.output
+		yr_sd_runtime_verif_lang.tab.c \
+		yr_sd_runtime_verif_lang.tab.h \
+		yr_sd_runtime_verif_lang.output
 
