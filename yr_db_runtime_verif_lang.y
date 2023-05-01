@@ -18,12 +18,12 @@ int yylex(void);
 %token	<opt_val>	RIGHT_ARROW_TOK
 %token	<int_val>	DIGIT_TOK
 %token	<opt_val>	ALPHA_NUM_TOK
-%token	<opt_val>	LEFT_INTERVAL_TOK
-%token	<opt_val>	RIGHT_INTERVAL_TOK
-%token	<opt_val>	LEFT_PAREN_TOK
-%token	<opt_val>	RIGHT_PAREN_TOK
+%token	<opt_val>	LEFT_BRACKET_TOK
+%token	<opt_val>	RIGHT_BRACKET_TOK
 %token	<opt_val>	LEFT_PARENTHESIS_TOK
 %token	<opt_val>	RIGHT_PARENTHESIS_TOK
+%token	<opt_val>	LEFT_BRACE_TOK
+%token	<opt_val>	RIGHT_BRACE_TOK
 %token	<opt_val>	SLASH_TOK
 %token	<opt_val>	DOT_TOK
 %token	<opt_val>	COLON_TOK
@@ -65,9 +65,9 @@ int yylex(void);
 
 input : /* empty */
 			| YR_SD_MEALY_AUTOMATON_SPEC_TOK ALPHA_NUM_TOK
-					LEFT_PARENTHESIS_TOK 
+					LEFT_BRACE_TOK 
 						mealy_automaton_spec DOT_TOK	
-					RIGHT_PARENTHESIS_TOK																													{ yr_printf("mealy_automaton_spec"); }
+					RIGHT_BRACE_TOK																																{ yr_printf("mealy_automaton_spec"); }
 			;
 mealy_automaton_spec : sut_state_spec 																									{ }
 										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 							{ }
@@ -77,22 +77,22 @@ sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automa
 sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_method_call				{ }
 															;
 edge_mealy_automaton_guard_cond : /* empty */
-																| LEFT_INTERVAL_TOK 
+																| LEFT_BRACKET_TOK 
 																		trace_specification
-																	RIGHT_INTERVAL_TOK SLASH_TOK 													{ }
+																	RIGHT_BRACKET_TOK SLASH_TOK 													{ }
 																; 																					
 trace_specification : in_set_trace
 									 	| not_in_set_trace
 										;	
 in_set_trace : IN_SET_TRACE_TOK
-						 			LEFT_PAREN_TOK 
+						 			LEFT_PARENTHESIS_TOK 
 										event_method_call COMA_TOK state_property_specification
-									RIGHT_PAREN_TOK
+									RIGHT_PARENTHESIS_TOK
 						 ;
 not_in_set_trace : NOT_IN_SET_TRACE_TOK
-						 			LEFT_PAREN_TOK 
+						 			LEFT_PARENTHESIS_TOK 
 										event_method_call COMA_TOK state_property_specification
-									RIGHT_PAREN_TOK
+									RIGHT_PARENTHESIS_TOK
 								 ;
 event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
 									;
@@ -110,29 +110,29 @@ not_in_spec : NOT_IN_PRE_TOK																														{ }
 						| NOT_IN_POST_TOK																														{ }
 						;
 inside_algebra_set_specification : in_spec 
-																 		LEFT_PAREN_TOK 
+																 		LEFT_PARENTHESIS_TOK 
 																 			prog_variable COMA_TOK db_table DOT_TOK db_column 
-																		RIGHT_PAREN_TOK																			{ }
+																		RIGHT_PARENTHESIS_TOK																			{ }
 																 ;
 not_inside_algebra_set_specification : not_in_spec
-																		 		LEFT_PAREN_TOK 
+																		 		LEFT_PARENTHESIS_TOK 
 																		 			prog_variable COMA_TOK db_table DOT_TOK db_column 
-																				RIGHT_PAREN_TOK																	{ }
+																				RIGHT_PARENTHESIS_TOK																	{ }
 																		 ;
 state_property_specification : STATE_TOK 
-														 		LEFT_PAREN_TOK 
+														 		LEFT_PARENTHESIS_TOK 
 																	ALPHA_NUM_TOK 
-																RIGHT_PAREN_TOK																					{ yr_printf("state_property_specification"); }
+																RIGHT_PARENTHESIS_TOK																					{ yr_printf("state_property_specification"); }
 														 ;
 final_state_property_specification : FINAL_STATE_TOK 
-														 					LEFT_PAREN_TOK 
+														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
-																			RIGHT_PAREN_TOK																		{ yr_printf("final_state_property_specification"); }
+																			RIGHT_PARENTHESIS_TOK																		{ yr_printf("final_state_property_specification"); }
 														 			 ;
 start_state_property_specification : START_STATE_TOK 
-														 					LEFT_PAREN_TOK 
+														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
-																			RIGHT_PAREN_TOK																		{ yr_printf("start_state_property_specification"); }
+																			RIGHT_PARENTHESIS_TOK																		{ yr_printf("start_state_property_specification"); }
 														 			 ;
 prog_variable : ALPHA_NUM_TOK		{ }
 				 ;

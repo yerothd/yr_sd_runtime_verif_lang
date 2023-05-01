@@ -33,12 +33,12 @@ dot										"."
 coma									","
 colon									":"
 semicolon							";"
-l_interval						"["
-r_interval						"]"
-l_paren								"("
-r_paren								")"
-l_par									"{"
-r_par									"}"
+l_bracket							"["
+r_bracket							"]"
+l_parenthesis					"("
+r_parenthesis					")"
+l_brace								"{"
+r_brace								"}"
 
 
 %%
@@ -62,21 +62,13 @@ r_par									"}"
 {coma}									{ yylval.opt_val = new std::string(yytext); return COMA_TOK; }
 {colon}									{ yylval.opt_val = new std::string(yytext); return COLON_TOK; }
 {semicolon}							{ yylval.opt_val = new std::string(yytext); return SEMI_COLON_TOK; }
-{l_interval}						{ yylval.opt_val = new std::string(yytext); return LEFT_INTERVAL_TOK; }
-{r_interval}						{ yylval.opt_val = new std::string(yytext); return RIGHT_INTERVAL_TOK; }
-{l_paren}								{ yylval.opt_val = new std::string(yytext); return LEFT_PAREN_TOK; }
-{r_paren}								{ yylval.opt_val = new std::string(yytext); return RIGHT_PAREN_TOK; }
-{l_par}									{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
-{r_par}									{ yylval.opt_val = new std::string(yytext); return RIGHT_PARENTHESIS_TOK; }
+{l_bracket}							{ yylval.opt_val = new std::string(yytext); return LEFT_BRACKET_TOK; }
+{r_bracket}							{ yylval.opt_val = new std::string(yytext); return RIGHT_BRACKET_TOK; }
+{l_parenthesis}					{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }
+{r_parenthesis}					{ yylval.opt_val = new std::string(yytext); return RIGHT_PARENTHESIS_TOK; }
+{l_brace}								{ yylval.opt_val = new std::string(yytext); return LEFT_BRACE_TOK; }
+{r_brace}								{ yylval.opt_val = new std::string(yytext); return RIGHT_BRACE_TOK; }
 .												{ std::cerr << "SCANNER "; yyerror(""); exit(1);	}
 %%
 
-
-/*int main(int argc, char* argv[])
-{
-  printf("Give me your input:\n");
-  yylex();
-
-  return 0;
-}*/
 
