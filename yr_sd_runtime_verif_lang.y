@@ -2,13 +2,11 @@
 %{
 #include "YR_HEADING.h"
 
-void yr_printf(string a_val_str);
+void yr_printf(string a_val_str, const char *zeichen = "");
 
 int yyerror(char *s);
 
 int yylex(void);
-
-void YR_INIT();
 
 YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT; 
 
@@ -76,7 +74,7 @@ input : /* empty */
 			| YR_SD_MEALY_AUTOMATON_SPEC_TOK ALPHA_NUM_TOK
 					LEFT_BRACE_TOK 
 						mealy_automaton_spec DOT_TOK	
-					RIGHT_BRACE_TOK																																{ yr_printf("mealy_automaton_spec"); }
+					RIGHT_BRACE_TOK																																{ a_spec_stmt_ROOT->PROCESS_mealy_automaton_spec($1->c_str()); }
 			;
 mealy_automaton_spec : sut_state_spec 																									{ }
 										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 							{ }
@@ -151,29 +149,23 @@ db_column : ALPHA_NUM_TOK				{ }
 					;
 %%
 
-//a_spec_stmt_ROOT->PROCESS_mealy_automaton_spec(yylval.opt_val->c_str());
 
-void YR_INIT()
+void yr_printf(string a_val_str, const char *zeichen /* = "" */)
 {
 	static bool init_zeichen = true;
 
 	if (init_zeichen)
 	{
-		YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT = 
-			new YR_SPEC_STMT_MEALY_AUTOMATON;
+		a_spec_stmt_ROOT = new YR_SPEC_STMT_MEALY_AUTOMATON;
 
 		init_zeichen = false;
 	}
-}
-
-
-void yr_printf(string a_val_str)
-{
+	
 	extern char *yytext;	// defined and maintained in lex.c
 	
 	if (0 != yylval.opt_val)
 	{
-		printf("%s: %s\n", a_val_str.c_str(), yylval.opt_val->c_str());
+		printf("[%s] %s: %s\n", zeichen, a_val_str.c_str(), yylval.opt_val->c_str());
 	}
 }
 

@@ -22,7 +22,7 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		virtual ~YR_SPEC_STMT_MEALY_AUTOMATON();
 
 		
-		virtual void PROCESS_mealy_automaton_spec(char *YR_SD_MEALY_AUTOMATON_SPEC_TOK);
+		virtual void PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_TOK);
 
 	protected:
 
