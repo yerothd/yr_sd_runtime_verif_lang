@@ -29,7 +29,11 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 	if (0 != _a_monitor_mealy_machine)
 	{
 		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_TOK));
-
+	
+		_a_monitor_mealy_machine->YR_generate_cplusplus_headers_files();
+		
+		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files();
+		
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_TOK", 
 				_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME());
 	}
