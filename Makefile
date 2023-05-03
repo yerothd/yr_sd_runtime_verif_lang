@@ -5,7 +5,8 @@ SRC = src
 OBJ_DIR = obj
 
 OBJS	= bison.o lex.o yr_main.o \
-		  ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
+				${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.o \
+				${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
 
 CC	= g++  
 
@@ -31,6 +32,16 @@ yr_sd_runtime_verif_lang:		$(OBJS)
 ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o:		${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp
 		mkdir -p ${OBJ_DIR}
 		$(CC) $(CFLAGS) -c ${SRC}/YR_SPEC_STMT_MEALY_AUTOMATON.cpp -o ${OBJ_DIR}/YR_SPEC_STMT_MEALY_AUTOMATON.o
+
+
+${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.o: ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp 
+	$(CXX) -c $(CFLAGS) -o ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.o ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp
+
+${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp: yr_sd_runtime_verif_lang.qrc \
+	/usr/lib/qt5/bin/rcc \
+	yr_rtm_YR_TAB_DEPARTMENT_LTS_TEST_1.TEMPLATE_HPP \
+	yr_rtm_YR_TAB_DEPARTMENT_LTS_TEST_1.TEMPLATE_CPP
+	/usr/lib/qt5/bin/rcc -name yr_sd_runtime_verif_lang yr_sd_runtime_verif_lang.qrc -o ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp
 
 
 lex.o:		lex.c

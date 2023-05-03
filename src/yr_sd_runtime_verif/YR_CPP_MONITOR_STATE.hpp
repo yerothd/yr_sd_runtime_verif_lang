@@ -12,6 +12,7 @@
 
 #include "YR_CPP_MONITOR_object.hpp"
 
+#include <algorithm>
 
 #include <QtCore/QString>
 
@@ -251,24 +252,25 @@ protected:
 class YR_CPP_MONITOR_STATE_functor
 {
 public:
-    inline YR_CPP_MONITOR_STATE_functor(QString
-                                        a_state_name):_a_state_name_TO_FIND
-        (a_state_name)
+
+    inline YR_CPP_MONITOR_STATE_functor(QString a_state_name)
+    :_a_state_name_TO_FIND(a_state_name)
     {
     }
 
     inline bool operator()(YR_CPP_MONITOR_STATE *a_state) const
     {
         return (0 != a_state) ?
-               (0 !=
-                a_state->
-                get_MONITOR_STATE_STATEPROPERTYVALUE(_a_state_name_TO_FIND)) : false;
+                ( YR_CPP_UTILS::isEqualCaseInsensitive(_a_state_name_TO_FIND,
+            	   a_state->get_MONITOR_STATE_STATEPROPERTYVALUE
+    				  	  (YR_CPP_MONITOR_STATE::_MONITOR_STATE_NAME_string_key)) ) : false;
     }
 
 private:
 
     QString _a_state_name_TO_FIND;
 };
+
 
 
 #endif // _YR_CPP_MONITOR_STATE_HPP_

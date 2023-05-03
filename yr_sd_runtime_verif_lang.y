@@ -8,6 +8,10 @@ int yyerror(char *s);
 
 int yylex(void);
 
+
+
+
+
 YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT; 
 
 %}
@@ -84,16 +88,16 @@ sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automa
 sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_method_call				{ }
 															;
 edge_mealy_automaton_guard_cond : /* empty */
-																| LEFT_BRACKET_TOK 
+																| LEFT_BRACKET_TOK 																			{ a_spec_stmt_ROOT->set_TRACE_SPECIFICATION(true); }
 																		trace_specification
-																	RIGHT_BRACKET_TOK SLASH_TOK 													{ }
+																	RIGHT_BRACKET_TOK SLASH_TOK 													{ a_spec_stmt_ROOT->set_TRACE_SPECIFICATION(false); }
 																; 																					
 trace_specification : in_set_trace
 									 	| not_in_set_trace
 										;	
 in_set_trace : IN_SET_TRACE_TOK
 						 			LEFT_PARENTHESIS_TOK 
-										event_method_call COMA_TOK state_property_specification
+										event_method_call COMA_TOK state_property_specification							
 									RIGHT_PARENTHESIS_TOK
 						 ;
 not_in_set_trace : NOT_IN_SET_TRACE_TOK
@@ -101,7 +105,8 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK
 										event_method_call COMA_TOK state_property_specification
 									RIGHT_PARENTHESIS_TOK
 								 ;
-event_method_call : STRING_TOK																													{ yr_printf("event_method_call"); }
+event_method_call : STRING_TOK																													{ yr_printf("event_method_call");
+																																													a_spec_stmt_ROOT->process_event_method_call($1->c_str()); }
 									;
 sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
 							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
@@ -129,17 +134,20 @@ not_inside_algebra_set_specification : not_in_spec
 state_property_specification : STATE_TOK 
 														 		LEFT_PARENTHESIS_TOK 
 																	ALPHA_NUM_TOK 
-																RIGHT_PARENTHESIS_TOK																					{ yr_printf("state_property_specification"); }
+																RIGHT_PARENTHESIS_TOK										{ yr_printf("state_property_specification");
+																																					a_spec_stmt_ROOT->PROCESS_STATE_spec($3->c_str()); }
 														 ;
 final_state_property_specification : FINAL_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
-																			RIGHT_PARENTHESIS_TOK																		{ yr_printf("final_state_property_specification"); }
+																			RIGHT_PARENTHESIS_TOK							{ yr_printf("final_state_property_specification"); 
+																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
 														 			 ;
 start_state_property_specification : START_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
-																			RIGHT_PARENTHESIS_TOK																		{ yr_printf("start_state_property_specification"); }
+																			RIGHT_PARENTHESIS_TOK							{ yr_printf("start_state_property_specification"); 
+																																					a_spec_stmt_ROOT->PROCESS_START_STATE_spec($3->c_str()); }
 														 			 ;
 prog_variable : ALPHA_NUM_TOK		{ }
 				 ;
