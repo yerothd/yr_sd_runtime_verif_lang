@@ -46,7 +46,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 		{
 			bool an_edge_was_created = (0 != A_RESULTING_CREATED_EDGE);
 
-			QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/%2 -> %3) is created")
+			QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/'%2' -> %3) is created")
 															.arg(_PREVIOUS_state_name,
 																	 _last_EVENT_METHOD_CALL_name,
 																 	 _CURRENT_state_name), 
@@ -151,10 +151,15 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 	{
 		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_TOK));
 	
-		_a_monitor_mealy_machine->YR_generate_cplusplus_headers_files();
+
+		_a_monitor_mealy_machine->
+			YR_generate_cplusplus_headers_files(QString("%1.hpp")
+																						.arg(_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME()));	
+		_a_monitor_mealy_machine->
+			YR_generate_cplusplus_sources_files(QString("%1.cpp")
+																						.arg(_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME()));
 		
-		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files();
-		
+
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_TOK", 
 				_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME());
 	}
