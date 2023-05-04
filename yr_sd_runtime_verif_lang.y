@@ -87,7 +87,7 @@ sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automa
 										;
 sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_method_call				{ }
 															;
-edge_mealy_automaton_guard_cond : /* empty */
+edge_mealy_automaton_guard_cond : /* empty */ SLASH_TOK
 																| LEFT_BRACKET_TOK 																			{ a_spec_stmt_ROOT->set_TRACE_SPECIFICATION(true); }
 																		trace_specification
 																	RIGHT_BRACKET_TOK SLASH_TOK 													{ a_spec_stmt_ROOT->set_TRACE_SPECIFICATION(false); }

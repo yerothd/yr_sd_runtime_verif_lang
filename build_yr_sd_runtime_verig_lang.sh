@@ -2,5 +2,5 @@
 # @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
 #
 
-c; make clean;
-c; make -j2; make -j2
+clear; make clean;
+clear; make -j2; make -j2
