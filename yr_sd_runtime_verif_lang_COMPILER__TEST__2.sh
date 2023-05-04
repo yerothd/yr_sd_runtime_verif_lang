@@ -1,0 +1,1 @@
+yr_sd_runtime_verif_lang_comp < test_inputs/yr_test_input_3.TXT
