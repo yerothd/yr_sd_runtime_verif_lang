@@ -155,12 +155,9 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 		_a_monitor_mealy_machine->print_TO_dot_FILE();
 
 
-		_a_monitor_mealy_machine->
-			YR_generate_cplusplus_headers_files(QString("%1.hpp")
-																						.arg(_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME()));	
-		_a_monitor_mealy_machine->
-			YR_generate_cplusplus_sources_files(QString("%1.cpp")
-																						.arg(_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME()));
+		_a_monitor_mealy_machine->YR_generate_cplusplus_headers_files__AND__SAVE__TO__DISK();	
+
+		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files__AND__SAVE__TO__DISK();																						;
 		
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_TOK", 
