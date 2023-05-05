@@ -122,7 +122,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 		{
 			bool an_edge_was_created = (0 != A_RESULTING_CREATED_EDGE);
 
-			QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/'%2' -> %3) is created")
+			QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/%2 -> %3) is created")
 															.arg(_PREVIOUS_state_name,
 																	 _last_EVENT_METHOD_CALL_name,
 																 	 _CURRENT_state_name), 

@@ -74,7 +74,7 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 		inline virtual void YR_PARSER_SET_last_EVENT_METHOD_CALL_name(const char *last_EVENT_METHOD_CALL_name)
 		{
-			_last_EVENT_METHOD_CALL_name = QString(last_EVENT_METHOD_CALL_name).replace("'", "");
+			_last_EVENT_METHOD_CALL_name = QString(last_EVENT_METHOD_CALL_name);
 		}
 
 		inline virtual void YR_PARSER_SET_PREVIOUS_state_name (const char *a_PREVIOUS_state_name)
