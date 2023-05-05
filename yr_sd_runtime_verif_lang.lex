@@ -25,7 +25,7 @@ notin_post						"NOT_IN_POST"
 final_state						"FINAL_STATE"
 start_state						"START_STATE"
 state									"STATE"
-string								"'"[ \t\n_a-zA-Z0-9]*"'"
+string								"'"[ \t\n\._a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
 digit									[0-9]+
 slash									"/"

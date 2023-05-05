@@ -124,12 +124,20 @@ not_in_spec : NOT_IN_PRE_TOK																														{ }
 inside_algebra_set_specification : in_spec 
 																 		LEFT_PARENTHESIS_TOK 
 																 			prog_variable COMA_TOK db_table DOT_TOK db_column 
-																		RIGHT_PARENTHESIS_TOK																			{ }
+																		RIGHT_PARENTHESIS_TOK																{ a_spec_stmt_ROOT->
+																																														process_inside_algebra_set_specification($1->c_str(),
+																																																																	   $3->c_str(),
+																																																																		 $5->c_str(),
+																																																																		 $7->c_str()); }
 																 ;
 not_inside_algebra_set_specification : not_in_spec
 																		 		LEFT_PARENTHESIS_TOK 
 																		 			prog_variable COMA_TOK db_table DOT_TOK db_column 
-																				RIGHT_PARENTHESIS_TOK																	{ }
+																				RIGHT_PARENTHESIS_TOK														{a_spec_stmt_ROOT->
+																																														process_not_inside_algebra_set_specification($1->c_str(),
+																																																																				 $3->c_str(),
+																																																																		 		 $5->c_str(),
+																																																																		 		 $7->c_str()); }
 																		 ;
 state_property_specification : STATE_TOK 
 														 		LEFT_PARENTHESIS_TOK 

@@ -14,6 +14,16 @@
 
 
 
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN("IN_PRE");
+		
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN("NOT_IN_PRE");
+		
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN("IN_POST");
+		
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN("NOT_IN_POST");
+
+
+
 YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
 :_CURRENTLY_WITHIN_TRACE_SPECIFICATION(false),
  _is_LAST_YR_PARSER_EVENT_method_call(false)
@@ -25,6 +35,72 @@ YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
 YR_SPEC_STMT_MEALY_AUTOMATON::~YR_SPEC_STMT_MEALY_AUTOMATON()
 {
 	DELETE_POINTER_YR_NOT_NULL(_a_monitor_mealy_machine);
+}
+
+
+void YR_SPEC_STMT_MEALY_AUTOMATON::
+		process_inside_algebra_set_specification(const char *IN_PRE_tok__or__IN_POST_tok,
+																						 const char *prog_variable,
+																						 const char *db_table,
+																						 const char *db_column)
+{
+	YR_CPP_MONITOR_STATE *_current_state = 
+			_a_monitor_mealy_machine->find_yr_monitor_state(_CURRENT_state_name);
+
+	assert (0 != _current_state);
+
+
+	QString DB_TABLE__db_column = QString(db_table);
+
+	DB_TABLE__db_column.append(".").append(QString(db_column));
+
+
+	QString in_pre__OR__in_post = QString(IN_PRE_tok__or__IN_POST_tok);
+
+	if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN,
+																				 in_pre__OR__in_post))
+	{
+
+		_current_state->set_PRE_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
+	}
+	else if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN,
+																				 		  in_pre__OR__in_post))
+	{
+		_current_state->set_POST_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
+	}
+}
+
+
+void YR_SPEC_STMT_MEALY_AUTOMATON::
+	process_not_inside_algebra_set_specification(const char *notIN_PRE_tok__or__notIN_POST_tok,
+																							 const char *prog_variable,
+																							 const char *db_table,
+																							 const char *db_column)
+{
+	YR_CPP_MONITOR_STATE *_current_state = 
+			_a_monitor_mealy_machine->find_yr_monitor_state(_CURRENT_state_name);
+
+	assert (0 != _current_state);
+
+
+	QString DB_TABLE__db_column = QString(db_table);
+
+	DB_TABLE__db_column.append(".").append(QString(db_column));
+
+
+	QString NOTin_pre__OR__NOTin_post = QString(notIN_PRE_tok__or__notIN_POST_tok);
+
+	if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
+																				 NOTin_pre__OR__NOTin_post))
+	{
+
+		_current_state->set_PRE_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
+	}
+	else if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN,
+																				 		  NOTin_pre__OR__NOTin_post))
+	{
+		_current_state->set_POST_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
+	}
 }
 
 

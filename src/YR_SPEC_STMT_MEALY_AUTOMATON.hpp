@@ -40,6 +40,18 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 			_CURRENTLY_WITHIN_TRACE_SPECIFICATION = a_boolean_value;
 		}
 
+		/* processing ALGEBRA SET SPECIFICATION methods */
+
+		virtual void process_inside_algebra_set_specification(const char *IN_PRE_tok__or__IN_POST_tok,
+																													const char *prog_variable,
+																												  const char *db_table,
+																													const char *db_column);
+
+		virtual void process_not_inside_algebra_set_specification(const char *notIN_PRE_tok__or__notIN_POST_tok,
+																														  const char *prog_variable,
+																												  		const char *db_table,
+																															const char *db_column);
+
 
 		/* processing edges methods */
 
@@ -69,6 +81,15 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		{
 			_PREVIOUS_state_name = QString(a_PREVIOUS_state_name);
 		}
+
+
+		static const QString IN_PRE_ID_TOKEN;
+		
+		static const QString NOT_IN_PRE_ID_TOKEN;
+		
+		static const QString IN_POST_ID_TOKEN;
+		
+		static const QString NOT_IN_POST_ID_TOKEN;
 
 
 		bool _CURRENTLY_WITHIN_TRACE_SPECIFICATION;
