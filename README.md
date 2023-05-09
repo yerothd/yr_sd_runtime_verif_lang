@@ -19,10 +19,12 @@ Run bash script '**build_yr_sd_runtime_verig_lang.sh**'.
 
 ### HERE is a sample state diagram mealy machine SPECIFICATION
 
+![yr_test_input_2](test_inputs/yr_test_input_2.png)
+
 yr_sd_mealy_automaton_spec yr_MISSING_department<br />
 {<br />
- &nbsp;&nbsp;START_STATE(d):NOT_IN_PRE(YR_ASSET,departements_produits.nom_departement_produit)<br />
- &nbsp;&nbsp;&nbsp;&nbsp;-> / 'select.departements_produits'-><br />
- &nbsp;&nbsp;&nbsp;&nbsp;FINAL_STATE(e):IN_POST(YR_ASSET, stocks.nom_departement_produit).<br />
+ &nbsp;&nbsp;START_STATE(D):Q0<br />
+ &nbsp;&nbsp;&nbsp;&nbsp;-> / 'select.department'-><br />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FINAL_STATE(E):Q1.<br />
 }
 
