@@ -39,8 +39,8 @@ ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.o: ${OBJ_DIR}/qrc_yr_sd_runtime_verif_la
 
 ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp: yr_sd_runtime_verif_lang.qrc \
 	/usr/lib/qt5/bin/rcc \
-	yr_rtm_YR_TAB_DEPARTMENT_LTS_TEST_1.TEMPLATE_HPP \
-	yr_rtm_YR_TAB_DEPARTMENT_LTS_TEST_1.TEMPLATE_CPP
+	yr_runtime_monitor_template.HPP \
+	yr_runtime_monitor_template.CPP
 	/usr/lib/qt5/bin/rcc -name yr_sd_runtime_verif_lang yr_sd_runtime_verif_lang.qrc -o ${OBJ_DIR}/qrc_yr_sd_runtime_verif_lang.cpp
 
 
