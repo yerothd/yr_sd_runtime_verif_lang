@@ -1,6 +1,6 @@
 yr_sd_mealy_automaton_spec yr_test_MISSING_department
 {
  START_STATE(d):NOT_IN_PRE(YR_ASSET, departements_produits.nom_departement_produit)
-  -> / 'select.departements_produits'->
+  -> / 'SELECT.departements_produits'->
    FINAL_STATE(e):IN_POST(YR_ASSET, stocks.nom_departement_produit).
 }

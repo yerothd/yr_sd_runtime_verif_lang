@@ -1,7 +1,7 @@
 yr_sd_mealy_automaton_spec yr_test_sd_mealy 
 {
  START_STATE(d):IN_PRE(v,table.column)
-  ->[IN_SET_TRACE('delete',STATE(d))]/'select'->
+  ->[IN_SET_TRACE('DELETE',STATE(d))]/'select'->
    STATE(yr):NOT_IN_POST(v,table.column)
     -> /'update'->
      FINAL_STATE(e):IN_POST(e,table.column).

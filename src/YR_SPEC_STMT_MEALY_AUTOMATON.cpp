@@ -57,13 +57,13 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 
 	QString in_pre__OR__in_post = QString(IN_PRE_tok__or__IN_POST_tok);
 
-	if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN,
+	if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN,
 																				 in_pre__OR__in_post))
 	{
 
 		_current_state->set_PRE_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
 	}
-	else if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN,
+	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN,
 																				 		  in_pre__OR__in_post))
 	{
 		_current_state->set_POST_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
@@ -90,13 +90,13 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 
 	QString NOTin_pre__OR__NOTin_post = QString(notIN_PRE_tok__or__notIN_POST_tok);
 
-	if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
+	if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
 																				 NOTin_pre__OR__NOTin_post))
 	{
 
 		_current_state->set_PRE_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
 	}
-	else if (YR_CPP_UTILS::isEqualCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN,
+	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN,
 																				 		  NOTin_pre__OR__NOTin_post))
 	{
 		_current_state->set_POST_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
