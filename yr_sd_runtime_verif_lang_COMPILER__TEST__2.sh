@@ -34,3 +34,5 @@ astyle "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".hpp
 
 astyle "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".cpp
 
+rm *.orig
+
