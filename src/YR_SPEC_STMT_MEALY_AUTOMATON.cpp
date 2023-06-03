@@ -13,6 +13,9 @@
 #include "yr_sd_runtime_verif/YR_CPP_MONITOR.hpp"
 
 
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::in_set_trace_ID_TOKEN("in_set_trace");
+		
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::not_in_set_trace_ID_TOKEN("not_in_set_trace");
 
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN("IN_PRE");
 		
@@ -25,7 +28,9 @@ const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN("NOT_IN_POST");
 
 
 YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
-:_CURRENTLY_WITHIN_TRACE_SPECIFICATION(false),
+:_PROCESS_notinset_set_TRACE_SPECIFICATION(false),
+ _set_notinset_INSET_trace(false),
+ _CURRENTLY_WITHIN_TRACE_SPECIFICATION(false),
  _is_LAST_YR_PARSER_EVENT_method_call(false)
 {
     _a_monitor_mealy_machine = YR_CPP_MONITOR::CREATE_MONITOR();	
@@ -35,6 +40,24 @@ YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
 YR_SPEC_STMT_MEALY_AUTOMATON::~YR_SPEC_STMT_MEALY_AUTOMATON()
 {
 	DELETE_POINTER_YR_NOT_NULL(_a_monitor_mealy_machine);
+}
+
+
+void YR_SPEC_STMT_MEALY_AUTOMATON::SET_not_in_set_trace()
+{
+	_PROCESS_notinset_set_TRACE_SPECIFICATION = true;
+	
+	//'false' means THIS IS an 'not_in_set_trace' specification
+	_set_notinset_INSET_trace = false;
+}
+		
+
+void YR_SPEC_STMT_MEALY_AUTOMATON::SET_in_set_trace()
+{
+	_PROCESS_notinset_set_TRACE_SPECIFICATION = true;
+	
+	//'true' means THIS IS an 'in_set_trace' specification
+	_set_notinset_INSET_trace = true;
 }
 
 
@@ -58,7 +81,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 	QString in_pre__OR__in_post = QString(IN_PRE_tok__or__IN_POST_tok);
 
 	if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN,
-																				 in_pre__OR__in_post))
+																				  in_pre__OR__in_post))
 	{
 
 		_current_state->set_PRE_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
@@ -122,19 +145,58 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 		{
 			bool an_edge_was_created = (0 != A_RESULTING_CREATED_EDGE);
 
-			QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/%2 -> %3) is created")
+			if (_PROCESS_notinset_set_TRACE_SPECIFICATION)
+			{
+				YR_CPP_notinset_inset_TRACE_expression *A_NOTINSET_inset__trace_expression
+					= new YR_CPP_notinset_inset_TRACE_expression(_set_notinset_INSET_trace,
+																						 					 _current_TRACE_SPECIFICATION_EVENT_TOKEN,
+																						 					 _current_TRACE_SPECIFICATION_state_name);				
+
+				A_RESULTING_CREATED_EDGE->set_GUARDED_CONDITION(A_NOTINSET_inset__trace_expression);
+
+				
+				QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> [%2(%3, %4)] True/%5 -> %6) is created")
 															.arg(_PREVIOUS_state_name,
-																	 _last_EVENT_METHOD_CALL_name,
-																 	 _CURRENT_state_name), 
-														 BOOL_TO_STRING(an_edge_was_created));
+																	 (_set_notinset_INSET_trace) ? in_set_trace_ID_TOKEN : not_in_set_trace_ID_TOKEN,
+																	 	_current_TRACE_SPECIFICATION_EVENT_TOKEN,
+																	 	_current_TRACE_SPECIFICATION_state_name,
+																	 	_last_EVENT_METHOD_CALL_name,
+																 	 	_CURRENT_state_name), 
+														 			 	BOOL_TO_STRING(an_edge_was_created));
+
+
+				_PROCESS_notinset_set_TRACE_SPECIFICATION = false;
+
+				_current_TRACE_SPECIFICATION_EVENT_TOKEN.clear();
+
+				_current_TRACE_SPECIFICATION_state_name.clear();
+
+			}
+			else
+			{
+				QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/%2 -> %3) is created")
+																.arg(_PREVIOUS_state_name,
+																		 _last_EVENT_METHOD_CALL_name,
+																	 	 _CURRENT_state_name), 
+															 			 BOOL_TO_STRING(an_edge_was_created));
 			}
 		}
+	}
 }
 
 
 /* processing edges methods */
 void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_method_call(const char *STRING_TOK)
 {
+	if (is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
+	{
+		set_current_TRACE_SPECIFICATION_EVENT_TOKEN(STRING_TOK);
+
+		_is_LAST_YR_PARSER_EVENT_method_call = false;
+
+		return ;
+	}
+
 	_is_LAST_YR_PARSER_EVENT_method_call = true;	
 	
 	YR_PARSER_SET_last_EVENT_METHOD_CALL_name(STRING_TOK);
@@ -148,12 +210,20 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 {
 	_CURRENT_state_name = STATE_TOK;
 	
+	if (is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
+	{
+		_current_TRACE_SPECIFICATION_state_name = _CURRENT_state_name;
+	}
+
 	if (0 != _a_monitor_mealy_machine)
 	{
 		YR_CPP_MONITOR_STATE * A_STATE = 
 			_a_monitor_mealy_machine->create_yr_monitor_state(STATE_TOK);
 
-		_process_edge_creation_();
+		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
+		{
+			_process_edge_creation_();
+		}
 
 		YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
 
@@ -179,7 +249,10 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_FINAL_STATE_spec(const char *FINAL_ST
 			A_FINAL_STATE->set_FINAL_STATE(true);
 		}
 
-		_process_edge_creation_();
+		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
+		{
+			_process_edge_creation_();
+		}
 		
 		YR_PARSER_SET_PREVIOUS_state_name(FINAL_STATE_TOK);
 		
@@ -208,7 +281,10 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 			A_START_STATE->set_START_STATE(true);
 		}
 
-		_process_edge_creation_();	
+		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
+		{
+			_process_edge_creation_();	
+		}
 		
 		YR_PARSER_SET_PREVIOUS_state_name(START_STATE_TOK);
 		

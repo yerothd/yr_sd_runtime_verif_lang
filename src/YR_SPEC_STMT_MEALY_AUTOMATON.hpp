@@ -35,10 +35,20 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 			return _CURRENTLY_WITHIN_TRACE_SPECIFICATION;
 		}
 		
-		inline virtual void set_TRACE_SPECIFICATION(bool a_boolean_value)
+		inline virtual void set_CURRENTLY_WITHIN_TRACE_SPECIFICATION(bool a_boolean_value)
 		{
 			_CURRENTLY_WITHIN_TRACE_SPECIFICATION = a_boolean_value;
 		}
+
+		inline virtual void set_current_TRACE_SPECIFICATION_EVENT_TOKEN(const char *current_trace_event)
+		{
+			_current_TRACE_SPECIFICATION_EVENT_TOKEN = QString(current_trace_event);
+		}
+
+		virtual void SET_not_in_set_trace();
+		
+		virtual void SET_in_set_trace();
+
 
 		/* processing ALGEBRA SET SPECIFICATION methods */
 
@@ -83,6 +93,10 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		}
 
 
+		static const QString in_set_trace_ID_TOKEN;
+		
+		static const QString not_in_set_trace_ID_TOKEN;
+		
 		static const QString IN_PRE_ID_TOKEN;
 		
 		static const QString NOT_IN_PRE_ID_TOKEN;
@@ -92,6 +106,10 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		static const QString NOT_IN_POST_ID_TOKEN;
 
 
+		bool _PROCESS_notinset_set_TRACE_SPECIFICATION;
+		
+		bool _set_notinset_INSET_trace;
+
 		bool _CURRENTLY_WITHIN_TRACE_SPECIFICATION;
 
 		bool _is_LAST_YR_PARSER_EVENT_method_call;
@@ -99,6 +117,9 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 		QString _last_EVENT_METHOD_CALL_name;
 		
+		QString _current_TRACE_SPECIFICATION_EVENT_TOKEN;
+		
+		QString _current_TRACE_SPECIFICATION_state_name;
 		
 		QString _CURRENT_state_name;
 		QString _PREVIOUS_state_name;

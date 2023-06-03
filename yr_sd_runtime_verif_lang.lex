@@ -16,8 +16,8 @@ int yyerror(char *s);
 space									[ \t\n]+
 right_arrow						"->"
 mealy_automaton_spec	"yr_sd_mealy_automaton_spec"
-in_set_trace					"IN_SET_TRACE"
-not_in_set_trace			"NOT_IN_SET_TRACE"
+in_set_trace					"in_set_trace"
+not_in_set_trace			"not_in_set_trace"
 in_pre								"IN_PRE"
 in_post								"IN_POST"
 notin_pre							"NOT_IN_PRE"

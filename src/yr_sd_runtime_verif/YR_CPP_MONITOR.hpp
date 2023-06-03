@@ -8,6 +8,11 @@
 #define _YR_CPP_MONITOR_HPP_
 
 
+/**
+ * TO KEEP EXACTLY AS A RELATIVE PATH
+ * SO TO AVOID build errors in
+ * 'yr-db-runtime-verif' project.
+ */
 #include "utils/YR_CPP_UTILS.hpp"
 
 #include "YR_CPP_MONITOR_object.hpp"
@@ -23,7 +28,7 @@
 
 class YR_CPP_MONITOR_ERP_database;
 
-class YR_CPP_BOOLEAN_expression;
+class YR_CPP_notinset_inset_TRACE_expression;
 
 class YR_CPP_MONITOR_EDGE;
 
@@ -69,8 +74,8 @@ public:
      * "TRUE" is returned in case an edge event
      * "an_edge_event" was triggered !
      */
-    bool YR_trigger_an_edge_event(QString 	an_edge_event,
-                                  bool 		debug_MSG = true);
+    bool YR_trigger_an_edge_event(QString 			an_edge_event,
+    							  bool 				debug_MSG = true);
 
     /**
      * "TRUE" is returned in case an edge event
@@ -142,8 +147,8 @@ public:
     void find_yr_monitor_edges(YR_CPP_MONITOR_EDGE 				&an_edge,
                                QList<YR_CPP_MONITOR_EDGE *> 	&resulting_edges);
 
-    void find_yr_monitor_edges(QString start_state_key,
-                               QString end_state_key,
+    void find_yr_monitor_edges(QString 						start_state_key,
+                               QString 						end_state_key,
                                QList<YR_CPP_MONITOR_EDGE *> &resulting_edges);
 
 
@@ -160,7 +165,7 @@ public:
 		create_yr_monitor_edge(QString source_state_key,
                                QString target_state_key,
                                QString event_string,
-                               YR_CPP_BOOLEAN_expression *guarded_condition);
+							   YR_CPP_notinset_inset_TRACE_expression *guarded_condition);
 
     YR_CPP_MONITOR_EDGE *create_yr_monitor_edge(QString source_state_key,
                                                 QString target_state_key,
@@ -287,6 +292,10 @@ protected:
 private:
 
     void (*_CALL_BACK_final_state)(YR_CPP_MONITOR_STATE *);
+
+
+    static const char INCOMING_TRACE_EVENT_SEPARATOR_CHARACTER;
+
 
     YR_CPP_MONITOR_ERP_database *_yr_SET_ALGEBRA_inclusion_DATABASE_to_query_for_STATUS;
 
