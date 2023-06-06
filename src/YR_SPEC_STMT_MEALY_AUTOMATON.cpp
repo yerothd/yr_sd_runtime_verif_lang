@@ -86,6 +86,10 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::set_current_TRACE_SPECIFICATION_ID_TOKEN(cons
 		{
 			_print_dot_file_WITH_SQL_EVENT_LOG = true;
 		}
+		else
+		{
+			_print_dot_file_WITH_SQL_EVENT_LOG = false;
+		}
 
 		first_time = false;
 	}
