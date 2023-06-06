@@ -278,7 +278,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 
 		if (0 != A_START_STATE)
 		{
-			A_START_STATE->set_START_STATE(true);
+			A_START_STATE->set_START_STATE(*_a_monitor_mealy_machine, true);
 		}
 
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
