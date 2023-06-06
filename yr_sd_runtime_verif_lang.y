@@ -41,6 +41,8 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	COMA_TOK
 %token	<opt_val>	SEMI_COLON_TOK
 %token	<opt_val>	STRING_TOK
+%token	<opt_val>	IN_SQL_EVENT_LOG_TOK
+%token	<opt_val>	NOT_IN_SQL_EVENT_LOG_TOK
 %token	<opt_val>	IN_SET_TRACE_TOK
 %token	<opt_val>	NOT_IN_SET_TRACE_TOK
 %token	<opt_val>	IN_PRE_TOK
@@ -57,7 +59,9 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %type	<opt_val>	algebra_set_specification
 %type	<opt_val>	in_spec
 %type	<opt_val>	not_in_spec
+%type	<opt_val>	in_sql_event_log
 %type	<opt_val>	in_set_trace
+%type	<opt_val>	not_in_sql_event_log
 %type	<opt_val>	not_in_set_trace
 %type	<opt_val>	trace_specification
 %type	<opt_val>	inside_algebra_set_specification
@@ -92,14 +96,27 @@ edge_mealy_automaton_guard_cond : /* empty */ SLASH_TOK
 																		trace_specification
 																	RIGHT_BRACKET_TOK SLASH_TOK 													{ a_spec_stmt_ROOT->set_CURRENTLY_WITHIN_TRACE_SPECIFICATION(false); }
 																; 																					
-trace_specification : in_set_trace
-									 	| not_in_set_trace
+trace_specification : in_sql_event_log																									{ a_spec_stmt_ROOT->set_current_TRACE_SPECIFICATION_ID_TOKEN($1->c_str()); }
+										| not_in_sql_event_log																							{ a_spec_stmt_ROOT->set_current_TRACE_SPECIFICATION_ID_TOKEN($1->c_str()); }
+										| in_set_trace																											{ a_spec_stmt_ROOT->set_current_TRACE_SPECIFICATION_ID_TOKEN($1->c_str()); }
+									 	| not_in_set_trace 																									{ a_spec_stmt_ROOT->set_current_TRACE_SPECIFICATION_ID_TOKEN($1->c_str()); }
 										;	
+in_sql_event_log : IN_SQL_EVENT_LOG_TOK																									{ yr_printf("in_sql_event_log"); a_spec_stmt_ROOT->SET_in_set_trace(); }
+						 			LEFT_PARENTHESIS_TOK 
+										event_method_call COMA_TOK state_property_specification
+									RIGHT_PARENTHESIS_TOK																								
+						 ;
 in_set_trace : IN_SET_TRACE_TOK																													{ yr_printf("in_set_trace"); a_spec_stmt_ROOT->SET_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
 										event_method_call COMA_TOK state_property_specification
 									RIGHT_PARENTHESIS_TOK																								
 						 ;
+not_in_sql_event_log : NOT_IN_SQL_EVENT_LOG_TOK																					{ yr_printf("not_in_sql_event_log"); 
+										 																																			a_spec_stmt_ROOT->SET_not_in_set_trace(); }
+						 			LEFT_PARENTHESIS_TOK 
+										event_method_call COMA_TOK state_property_specification 		
+									RIGHT_PARENTHESIS_TOK																								 
+								 ;
 not_in_set_trace : NOT_IN_SET_TRACE_TOK																									{ yr_printf("not_in_set_trace"); a_spec_stmt_ROOT->SET_not_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
 										event_method_call COMA_TOK state_property_specification 		

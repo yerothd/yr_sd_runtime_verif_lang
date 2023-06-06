@@ -29,7 +29,6 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 
 		/* processing trace specification methods */
-
 		inline virtual bool is_CURRENTLY_WORKING_TRACE_SPECIFICATION()
 		{
 			return _CURRENTLY_WITHIN_TRACE_SPECIFICATION;
@@ -40,6 +39,8 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 			_CURRENTLY_WITHIN_TRACE_SPECIFICATION = a_boolean_value;
 		}
 
+		virtual void set_current_TRACE_SPECIFICATION_ID_TOKEN(const char *current_trace_SPECIFICATION_ID);
+		
 		inline virtual void set_current_TRACE_SPECIFICATION_EVENT_TOKEN(const char *current_trace_event)
 		{
 			_current_TRACE_SPECIFICATION_EVENT_TOKEN = QString(current_trace_event);
@@ -93,10 +94,17 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		}
 
 
-		static const QString in_set_trace_ID_TOKEN;
-		
-		static const QString not_in_set_trace_ID_TOKEN;
-		
+	
+
+		static const QString IN_SET_TRACE_ID_TOKEN;
+
+		static const QString IN_SQL_EVENT_LOG_ID_TOKEN;
+
+		static const QString NOT_IN_SET_TRACE_ID_TOKEN;
+
+		static const QString NOT_IN_SQL_EVENT_LOG_ID_TOKEN;	
+
+
 		static const QString IN_PRE_ID_TOKEN;
 		
 		static const QString NOT_IN_PRE_ID_TOKEN;
@@ -104,6 +112,14 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		static const QString IN_POST_ID_TOKEN;
 		
 		static const QString NOT_IN_POST_ID_TOKEN;
+
+
+		static const QList<QString> in_set_trace_ID_TOKEN;
+		
+		static const QList<QString> not_in_set_trace_ID_TOKEN;
+
+
+		uint _CURRENT_IN_SET_notinset_TRACE_SPEC_idx;
 
 
 		bool _PROCESS_notinset_set_TRACE_SPECIFICATION;
@@ -114,8 +130,12 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 		bool _is_LAST_YR_PARSER_EVENT_method_call;
 
+		bool _print_dot_file_WITH_SQL_EVENT_LOG;
+
 
 		QString _last_EVENT_METHOD_CALL_name;
+		
+		QString _current_TRACE_SPECIFICATION_ID_TOKEN;
 		
 		QString _current_TRACE_SPECIFICATION_EVENT_TOKEN;
 		

@@ -16,6 +16,8 @@ int yyerror(char *s);
 space									[ \t\n]+
 right_arrow						"->"
 mealy_automaton_spec	"yr_sd_mealy_automaton_spec"
+IN_SQL_EVENT_LOG			"in_sql_event_log"
+NOT_IN_SQL_EVENT_LOG	"not_in_sql_event_log"
 in_set_trace					"in_set_trace"
 not_in_set_trace			"not_in_set_trace"
 in_pre								"IN_PRE"
@@ -45,6 +47,8 @@ r_brace								"}"
 {space}            			; /* Do nothing */
 {mealy_automaton_spec}	{ yylval.opt_val = new std::string(yytext); return YR_SD_MEALY_AUTOMATON_SPEC_TOK; }
 {right_arrow}						{ yylval.opt_val = new std::string(yytext); return RIGHT_ARROW_TOK; }
+{IN_SQL_EVENT_LOG}			{ yylval.opt_val = new std::string(yytext); return IN_SQL_EVENT_LOG_TOK; }
+{NOT_IN_SQL_EVENT_LOG}	{ yylval.opt_val = new std::string(yytext); return NOT_IN_SQL_EVENT_LOG_TOK; }
 {in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
 {not_in_set_trace}			{ yylval.opt_val = new std::string(yytext); return NOT_IN_SET_TRACE_TOK; }
 {in_pre}								{ yylval.opt_val = new std::string(yytext); return IN_PRE_TOK; }
