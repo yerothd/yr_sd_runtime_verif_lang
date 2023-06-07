@@ -52,8 +52,7 @@ const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::not_in_set_trace_ID_TOKEN =
 
 
 YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
-:_CURRENT_IN_SET_notinset_TRACE_SPEC_idx(0),
- _PROCESS_notinset_set_TRACE_SPECIFICATION(false),
+:_PROCESS_notinset_set_TRACE_SPECIFICATION(false),
  _set_notinset_INSET_trace(false),
  _CURRENTLY_WITHIN_TRACE_SPECIFICATION(false),
  _is_LAST_YR_PARSER_EVENT_method_call(false),
@@ -94,16 +93,6 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::set_current_TRACE_SPECIFICATION_ID_TOKEN(cons
 		first_time = false;
 	}
 	// ######################################################
-	
-
-	if (YR_SPEC_STMT_MEALY_AUTOMATON::in_set_trace_ID_TOKEN.contains(_current_TRACE_SPECIFICATION_ID_TOKEN))
-	{
-		_CURRENT_IN_SET_notinset_TRACE_SPEC_idx = 0;
-	}
-	else if (YR_SPEC_STMT_MEALY_AUTOMATON::not_in_set_trace_ID_TOKEN.contains(_current_TRACE_SPECIFICATION_ID_TOKEN))
-	{
-		_CURRENT_IN_SET_notinset_TRACE_SPEC_idx = 1;
-	}
 }
 
 
@@ -229,8 +218,6 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 														 			 BOOL_TO_STRING(an_edge_was_created));
 
 				
-				_CURRENT_IN_SET_notinset_TRACE_SPEC_idx = 0;
-
 				_PROCESS_notinset_set_TRACE_SPECIFICATION = false;
 		
 				_current_TRACE_SPECIFICATION_ID_TOKEN.clear();

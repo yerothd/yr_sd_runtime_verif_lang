@@ -119,9 +119,6 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		static const QList<QString> not_in_set_trace_ID_TOKEN;
 
 
-		uint _CURRENT_IN_SET_notinset_TRACE_SPEC_idx;
-
-
 		bool _PROCESS_notinset_set_TRACE_SPECIFICATION;
 		
 		bool _set_notinset_INSET_trace;
