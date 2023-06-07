@@ -100,7 +100,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::SET_not_in_set_trace()
 {
 	_PROCESS_notinset_set_TRACE_SPECIFICATION = true;
 	
-	//'false' means THIS IS an 'not_in_set_trace' specification
+	//'false' means THIS IS a 'not_in_set_trace' specification
 	_set_notinset_INSET_trace = false;
 }
 		
