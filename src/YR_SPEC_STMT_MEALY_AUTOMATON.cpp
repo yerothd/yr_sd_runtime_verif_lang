@@ -352,11 +352,11 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 
 
 void YR_SPEC_STMT_MEALY_AUTOMATON::
-	PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_TOK)
+	PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_name)
 {
 	if (0 != _a_monitor_mealy_machine)
 	{
-		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_TOK));
+		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_name));
 	
 
 		_a_monitor_mealy_machine->print_TO_dot_FILE(_print_dot_file_WITH_SQL_EVENT_LOG);
@@ -367,7 +367,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files__AND__SAVE__TO__DISK();																						;
 		
 
-		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_TOK", 
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_name", 
 				_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME());
 	}
 	

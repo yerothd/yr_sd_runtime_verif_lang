@@ -79,7 +79,7 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		virtual void PROCESS_START_STATE_spec(const char *START_STATE_TOK);
 		
 
-		virtual void PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_TOK);
+		virtual void PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_name);
 
 	protected:
 

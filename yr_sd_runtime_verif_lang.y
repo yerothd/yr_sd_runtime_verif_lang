@@ -82,7 +82,7 @@ input : /* empty */
 			| YR_SD_MEALY_AUTOMATON_SPEC_TOK ALPHA_NUM_TOK
 					LEFT_BRACE_TOK 
 						mealy_automaton_spec DOT_TOK	
-					RIGHT_BRACE_TOK																																{ a_spec_stmt_ROOT->PROCESS_mealy_automaton_spec($1->c_str()); }
+					RIGHT_BRACE_TOK																																{ a_spec_stmt_ROOT->PROCESS_mealy_automaton_spec($2->c_str()); }
 			;
 mealy_automaton_spec : sut_state_spec 																									{ }
 										 | sut_state_spec RIGHT_ARROW_TOK sut_edge_state_spec 							{ }
