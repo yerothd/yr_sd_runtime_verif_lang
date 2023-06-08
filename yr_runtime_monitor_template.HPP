@@ -16,6 +16,7 @@
 #include <QtCore/QDebug>
 
 
+class YR_CPP_MONITOR_EDGE;
 class YR_CPP_MONITOR;
 
 
