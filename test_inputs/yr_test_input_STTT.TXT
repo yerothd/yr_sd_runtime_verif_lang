@@ -4,6 +4,6 @@ yr_sd_mealy_automaton_spec yr_sd_runtime_verif_EXAMPLE_realcase_2
   ->/'DELETE.marchandises.YR_ASSET'->
    STATE(D):IN_POST(YR_ASSET,stocks.nom_departement_produit)
     ->[in_set_trace('DELETE.departements_produits.YR_ASSET',STATE(D))]/'INSERT.departements_produits'.?->
-     FINAL_STATE(e):NOT_IN_POST(id('departements_produits.nom_departement_produit.YR_ASSET'),departements_produits.ID).
+     ERROR_STATE(e):NOT_IN_POST(id('departements_produits.nom_departement_produit.YR_ASSET'),departements_produits.ID).
 }
 

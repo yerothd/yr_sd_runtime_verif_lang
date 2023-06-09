@@ -50,6 +50,7 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	NOT_IN_PRE_TOK
 %token	<opt_val>	NOT_IN_POST_TOK
 %token	<opt_val>	START_STATE_TOK
+%token	<opt_val>	ERROR_STATE_TOK
 %token	<opt_val>	FINAL_STATE_TOK
 %token	<opt_val>	STATE_TOK
 
@@ -179,7 +180,12 @@ state_property_specification : STATE_TOK
 																RIGHT_PARENTHESIS_TOK										{ yr_printf($3->c_str(), "state_property_specification");
 																																					a_spec_stmt_ROOT->PROCESS_STATE_spec($3->c_str()); }
 														 ;
-final_state_property_specification : FINAL_STATE_TOK 
+final_state_property_specification :ERROR_STATE_TOK 
+														 					LEFT_PARENTHESIS_TOK 
+																				ALPHA_NUM_TOK 
+																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "final_state_property_specification"); 
+																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
+																	 | FINAL_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
 																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "final_state_property_specification"); 
