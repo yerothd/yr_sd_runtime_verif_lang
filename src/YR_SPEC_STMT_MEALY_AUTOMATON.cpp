@@ -241,7 +241,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 
 
 /* processing edges methods */
-void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_method_call(const char *STRING_TOK)
+void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_call(const char *STRING_TOK)
 {
 	if (is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 	{
@@ -256,7 +256,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_method_call(const char *STRING_
 	
 	YR_PARSER_SET_last_EVENT_METHOD_CALL_name(STRING_TOK);
 		
-	QDEBUG_STRING_OUTPUT_2("[process_event_method_call] STRING_TOK", STRING_TOK);
+	QDEBUG_STRING_OUTPUT_2("[process_event_call] STRING_TOK", STRING_TOK);
 }
 
 

@@ -68,7 +68,7 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 		virtual void _process_edge_creation_();
 		
-		virtual void process_event_method_call(const char *STRING_TOK);
+		virtual void process_event_call(const char *STRING_TOK);
 	
 		
 		/* PROCESSING STATES METHODS */	

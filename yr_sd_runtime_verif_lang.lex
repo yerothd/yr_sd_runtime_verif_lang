@@ -29,12 +29,13 @@ start_state						"START_STATE"
 state									"STATE"
 string								"'"[ \t\n\._a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
-digit									[0-9]+
+/*digit									[0-9]+*/
 slash									"/"
+interrogation_mark		"?"
 dot										"."
 coma									","
 colon									":"
-semicolon							";"
+/*semicolon							";"*/
 l_bracket							"["
 r_bracket							"]"
 l_parenthesis					"("
@@ -60,12 +61,11 @@ r_brace								"}"
 {state}									{ yylval.opt_val = new std::string(yytext); return STATE_TOK; }
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
 {alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }
-{digit}									{ yylval.int_val = atoi(yytext); return DIGIT_TOK; }
 {slash}									{ yylval.opt_val = new std::string(yytext); return SLASH_TOK; }
+{interrogation_mark}		{ yylval.opt_val = new std::string(yytext); return INTERROGATION_MARK_TOK; }
 {dot}										{ yylval.opt_val = new std::string(yytext); return DOT_TOK; }
 {coma}									{ yylval.opt_val = new std::string(yytext); return COMA_TOK; }
 {colon}									{ yylval.opt_val = new std::string(yytext); return COLON_TOK; }
-{semicolon}							{ yylval.opt_val = new std::string(yytext); return SEMI_COLON_TOK; }
 {l_bracket}							{ yylval.opt_val = new std::string(yytext); return LEFT_BRACKET_TOK; }
 {r_bracket}							{ yylval.opt_val = new std::string(yytext); return RIGHT_BRACKET_TOK; }
 {l_parenthesis}					{ yylval.opt_val = new std::string(yytext); return LEFT_PARENTHESIS_TOK; }

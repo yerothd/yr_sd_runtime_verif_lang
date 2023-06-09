@@ -24,10 +24,9 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 
 %start	input 
 
-%token	<opt_val>	SPACE_TOK
 %token	<opt_val>	YR_SD_MEALY_AUTOMATON_SPEC_TOK
 %token	<opt_val>	RIGHT_ARROW_TOK
-%token	<int_val>	DIGIT_TOK
+/*%token	<int_val>	DIGIT_TOK*/
 %token	<opt_val>	ALPHA_NUM_TOK
 %token	<opt_val>	LEFT_BRACKET_TOK
 %token	<opt_val>	RIGHT_BRACKET_TOK
@@ -36,10 +35,11 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	LEFT_BRACE_TOK
 %token	<opt_val>	RIGHT_BRACE_TOK
 %token	<opt_val>	SLASH_TOK
+%token	<opt_val>	INTERROGATION_MARK_TOK
 %token	<opt_val>	DOT_TOK
 %token	<opt_val>	COLON_TOK
 %token	<opt_val>	COMA_TOK
-%token	<opt_val>	SEMI_COLON_TOK
+/*%token	<opt_val>	SEMI_COLON_TOK*/
 %token	<opt_val>	STRING_TOK
 %token	<opt_val>	IN_SQL_EVENT_LOG_TOK
 %token	<opt_val>	NOT_IN_SQL_EVENT_LOG_TOK
@@ -68,10 +68,12 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %type	<opt_val>	not_inside_algebra_set_specification
 %type	<opt_val>	db_table
 %type	<opt_val>	db_column
+%type	<opt_val>	function_call
+%type	<opt_val>	function_id
 %type	<opt_val>	prog_variable
 %type <opt_val> edge_mealy_automaton_guard_cond
 %type	<opt_val>	sut_edge_mealy_automaton_spec
-%type	<opt_val>	event_method_call
+%type	<opt_val>	event_call
 
 %left	COLON_TOK
 %left	RIGHT_ARROW_TOK
@@ -89,7 +91,7 @@ mealy_automaton_spec : sut_state_spec 																									{ }
 										 ;
 sut_edge_state_spec : sut_edge_mealy_automaton_spec RIGHT_ARROW_TOK mealy_automaton_spec{ }
 										;
-sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_method_call				{ }
+sut_edge_mealy_automaton_spec : edge_mealy_automaton_guard_cond event_call				{ }
 															;
 edge_mealy_automaton_guard_cond : /* empty */ SLASH_TOK 
 																| LEFT_BRACKET_TOK 																			{ a_spec_stmt_ROOT->set_CURRENTLY_WITHIN_TRACE_SPECIFICATION(true); }
@@ -103,30 +105,32 @@ trace_specification : in_sql_event_log																									{ a_spec_stmt_ROO
 										;	
 in_sql_event_log : IN_SQL_EVENT_LOG_TOK																									{ yr_printf("in_sql_event_log"); a_spec_stmt_ROOT->SET_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
-										event_method_call COMA_TOK state_property_specification
+										event_call COMA_TOK state_property_specification
 									RIGHT_PARENTHESIS_TOK																								
 						 ;
 in_set_trace : IN_SET_TRACE_TOK																													{ yr_printf("in_set_trace"); a_spec_stmt_ROOT->SET_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
-										event_method_call COMA_TOK state_property_specification
+										event_call COMA_TOK state_property_specification
 									RIGHT_PARENTHESIS_TOK																								
 						 ;
 not_in_sql_event_log : NOT_IN_SQL_EVENT_LOG_TOK																					{ yr_printf("not_in_sql_event_log"); 
 										 																																			a_spec_stmt_ROOT->SET_not_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
-										event_method_call COMA_TOK state_property_specification 		
+										event_call COMA_TOK state_property_specification 		
 									RIGHT_PARENTHESIS_TOK																								 
 								 ;
 not_in_set_trace : NOT_IN_SET_TRACE_TOK																									{ yr_printf("not_in_set_trace"); a_spec_stmt_ROOT->SET_not_in_set_trace(); }
 						 			LEFT_PARENTHESIS_TOK 
-										event_method_call COMA_TOK state_property_specification 		
+										event_call COMA_TOK state_property_specification 		
 									RIGHT_PARENTHESIS_TOK																								 
 								 ;
-event_method_call : STRING_TOK																													{ a_spec_stmt_ROOT->process_event_method_call($1->c_str()); }
-									;
+event_call : STRING_TOK
+					 | STRING_TOK DOT_TOK INTERROGATION_MARK_TOK 																	{ a_spec_stmt_ROOT->process_event_call($1->c_str()); }
+					 ;
 sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
 							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
 							 | start_state_property_specification	COLON_TOK algebra_set_specification	{ }
+							 | start_state_property_specification							 
 							 ;
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
@@ -145,6 +149,11 @@ inside_algebra_set_specification : in_spec
 																																																																	   $3->c_str(),
 																																																																		 $5->c_str(),
 																																																																		 $7->c_str()); }
+																 |
+																	 in_spec 
+																 		LEFT_PARENTHESIS_TOK 
+																 			function_call COMA_TOK db_table DOT_TOK db_column 
+																		RIGHT_PARENTHESIS_TOK																{ }
 																 ;
 not_inside_algebra_set_specification : not_in_spec
 																		 		LEFT_PARENTHESIS_TOK 
@@ -154,7 +163,16 @@ not_inside_algebra_set_specification : not_in_spec
 																																																																				 $3->c_str(),
 																																																																		 		 $5->c_str(),
 																																																																		 		 $7->c_str()); }
+																		 |
+																			 not_in_spec
+																		 		LEFT_PARENTHESIS_TOK 
+																		 			function_call COMA_TOK db_table DOT_TOK db_column 
+																				RIGHT_PARENTHESIS_TOK
 																		 ;
+function_call : function_id LEFT_PARENTHESIS_TOK STRING_TOK RIGHT_PARENTHESIS_TOK
+						  ;
+function_id : ALPHA_NUM_TOK
+						;
 state_property_specification : STATE_TOK 
 														 		LEFT_PARENTHESIS_TOK 
 																	ALPHA_NUM_TOK 
