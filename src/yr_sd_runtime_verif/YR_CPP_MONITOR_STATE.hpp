@@ -68,8 +68,7 @@ public:
 
     inline virtual QString get_MONITOR_STATE_NAME()
     {
-        return
-        		get_MONITOR_STATE_STATEPROPERTYVALUE(_MONITOR_STATE_NAME_string_key);
+        return get_MONITOR_STATE_STATEPROPERTYVALUE(_MONITOR_STATE_NAME_string_key);
     }
 
     inline virtual void set_MONITOR_STATE_NAME(QString a_monitor_state_name)
@@ -124,49 +123,56 @@ public:
                value(a_state_property_key, YR_CPP_UTILS::EMPTY_STRING);
     }
 
-    inline virtual void set_IN_PRE_STATEPROPERTYKEY__to__VALUE(QString
-                                                           a_stateproperty_KEY,
-                                                           QString a_VALUE)
-    {
-        _SET_IN_PRE_STATEPROPERTYKEY_TO_VALUE.insert(a_stateproperty_KEY, a_VALUE);
-    }
 
-    inline virtual
-		void set_notIN_PRE_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
-                                                       QString a_VALUE)
-    {
-        _SET_notIN_PRE_STATEPROPERTYKEY_TO_VALUE.insert(a_stateproperty_KEY,
-                                                    a_VALUE);
-    }
+    virtual
+	void set_IN_PRE_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
+                                                QString a_VALUE);
 
-    inline virtual
-		void set_in_post_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
-                                                     QString a_VALUE)
-    {
-        _SET_IN_POST_STATEPROPERTYKEY_TO_VALUE.insert(a_stateproperty_KEY,
-                                                    a_VALUE);
-    }
+    virtual
+	void set_notIN_PRE_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
+                                                   QString a_VALUE);
 
-    inline virtual
-		void set_notin_POST_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
-                                                        QString a_VALUE)
-    {
-        _SET_notIN_POST_STATEPROPERTYKEY_TO_VALUE.insert(a_stateproperty_KEY,
-                                                        a_VALUE);
-    }
+    virtual
+	void set_in_post_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
+                                                 QString a_VALUE);
 
+    virtual
+	void set_notin_POST_STATEPROPERTYKEY__to__VALUE(QString a_stateproperty_KEY,
+                                                    QString a_VALUE);
+
+
+    /**
+     * NOT_IN_PRE(DB_VARIABLE, db_query_TABLE__db_query_COLUMN)
+     *
+     * REMOVES ANY OTHER state-condition.
+     */
     void set_PRE_CONDITION_notIN(QString DB_VARIABLE,
                                  QString db_query_TABLE__db_query_COLUMN);
 
 
+    /**
+     * IN_PRE(DB_VARIABLE, db_query_TABLE__db_query_COLUMN)
+     *
+     * REMOVES ANY OTHER state-condition.
+     */
     void set_PRE_CONDITION_IN(QString DB_VARIABLE,
                               QString db_query_TABLE__db_query_COLUMN);
 
 
+    /**
+     * NOT_IN_POST(DB_VARIABLE, db_query_TABLE__db_query_COLUMN)
+     *
+     * REMOVES ANY OTHER state-condition.
+     */
     void set_POST_CONDITION_notIN(QString DB_VARIABLE,
                                   QString db_query_TABLE__db_query_COLUMN);
 
 
+    /**
+     * IN_POST(DB_VARIABLE, db_query_TABLE__db_query_COLUMN)
+     *
+     * REMOVES ANY OTHER state-condition.
+     */
     void set_POST_CONDITION_IN(QString DB_VARIABLE,
                                QString db_query_TABLE__db_query_COLUMN);
 
@@ -180,6 +186,8 @@ public:
     {
         return _MONITOR_STATE_TRACE_EVENTS;
     }
+
+    virtual QString GET_STRING_representation_OF_state_condition();
 
 
     /**
@@ -238,6 +246,10 @@ public:
     QString MONITOR_STATE_NAME;
 
     static const QString _MONITOR_STATE_NAME_string_key;
+
+    QString _STATE_CONDITION__db_variable;
+
+    QString _STATE_CONDITION__db_query_TABLE__db_query_COLUMN;
 
     QMap <QString, QString> _SET_IN_PRE_STATEPROPERTYKEY_TO_VALUE;
 
