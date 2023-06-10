@@ -9,7 +9,6 @@
 #include "YR_HEADING.h"
 #include "tok.h"
 int yyerror(char *s);
-//int yylineno = 1;
 %}
 
 
@@ -28,15 +27,12 @@ error_state						"ERROR_STATE"
 final_state						"FINAL_STATE"
 start_state						"START_STATE"
 state									"STATE"
-string								"'"[ \t\n\._a-zA-Z0-9]*"'"
+string								"'"[ \t\n\.?_a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
-/*digit									[0-9]+*/
 slash									"/"
-interrogation_mark		"?"
 dot										"."
 coma									","
 colon									":"
-/*semicolon							";"*/
 l_bracket							"["
 r_bracket							"]"
 l_parenthesis					"("
@@ -64,7 +60,6 @@ r_brace								"}"
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
 {alpha_num}							{ yylval.opt_val = new std::string(yytext); return ALPHA_NUM_TOK; }
 {slash}									{ yylval.opt_val = new std::string(yytext); return SLASH_TOK; }
-{interrogation_mark}		{ yylval.opt_val = new std::string(yytext); return INTERROGATION_MARK_TOK; }
 {dot}										{ yylval.opt_val = new std::string(yytext); return DOT_TOK; }
 {coma}									{ yylval.opt_val = new std::string(yytext); return COMA_TOK; }
 {colon}									{ yylval.opt_val = new std::string(yytext); return COLON_TOK; }

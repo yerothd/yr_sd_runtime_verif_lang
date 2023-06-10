@@ -26,7 +26,6 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 
 %token	<opt_val>	YR_SD_MEALY_AUTOMATON_SPEC_TOK
 %token	<opt_val>	RIGHT_ARROW_TOK
-/*%token	<int_val>	DIGIT_TOK*/
 %token	<opt_val>	ALPHA_NUM_TOK
 %token	<opt_val>	LEFT_BRACKET_TOK
 %token	<opt_val>	RIGHT_BRACKET_TOK
@@ -35,11 +34,9 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	LEFT_BRACE_TOK
 %token	<opt_val>	RIGHT_BRACE_TOK
 %token	<opt_val>	SLASH_TOK
-%token	<opt_val>	INTERROGATION_MARK_TOK
 %token	<opt_val>	DOT_TOK
 %token	<opt_val>	COLON_TOK
 %token	<opt_val>	COMA_TOK
-/*%token	<opt_val>	SEMI_COLON_TOK*/
 %token	<opt_val>	STRING_TOK
 %token	<opt_val>	IN_SQL_EVENT_LOG_TOK
 %token	<opt_val>	NOT_IN_SQL_EVENT_LOG_TOK
@@ -125,8 +122,7 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK																									{ yr_printf("not
 										event_call COMA_TOK state_property_specification 		
 									RIGHT_PARENTHESIS_TOK																								 
 								 ;
-event_call : STRING_TOK
-					 | STRING_TOK DOT_TOK INTERROGATION_MARK_TOK 																	{ a_spec_stmt_ROOT->process_event_call($1->c_str()); }
+event_call : STRING_TOK 																																{ a_spec_stmt_ROOT->process_event_call($1->c_str()); }
 					 ;
 sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
 							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
