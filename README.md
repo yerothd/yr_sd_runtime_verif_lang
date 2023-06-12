@@ -5,7 +5,7 @@
 COMMERCIAL CASE (Computer-Aided Software Engineering) tool
 to draw, generate text files.
 
-![YR_QVGE CASE (Computer-Aided Software Engineering) tool](https://github.com/yerothd/yr_sd_runtime_verig_lang/blob/master/YR_QVGE_screenshot.png?raw=true)
+![YR_QVGE CASE (Computer-Aided Software Engineering) tool](https://github.com/yerothd/yr_sd_runtime_verif_lang/blob/master/YR_QVGE_screenshot.png?raw=true)
 
 
 ### MIT SOFTWARE LICENSED
