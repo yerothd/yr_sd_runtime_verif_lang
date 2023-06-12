@@ -31,6 +31,6 @@ yr_sd_mealy_automaton_spec yr_MISSING_department<br />
 {<br />
  &nbsp;&nbsp;START_STATE(D):Q0<br />
  &nbsp;&nbsp;&nbsp;&nbsp;-> / 'select.department' -><br />
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FINAL_STATE(E):Q1.<br />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_STATE(E):Q1.<br />
 }
 
