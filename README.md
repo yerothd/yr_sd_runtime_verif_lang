@@ -3,7 +3,7 @@
 
 
 COMMERCIAL CASE (Computer-Aided Software Engineering) tool
-to draw, generate text files ([YR_QVGE (https://archive.org/download/yeroth-qvge/YEROTH_QVGE.pdf)](https://archive.org/download/yeroth-qvge/YEROTH_QVGE.pdf)).
+to draw, generate text files ([YR_QVGE (https://zenodo.org/record/8045734/)](https://zenodo.org/record/8045734/)).
 
 ![YR_QVGE CASE (Computer-Aided Software Engineering) tool](https://github.com/yerothd/yr_sd_runtime_verif_lang/blob/master/YR_QVGE_screenshot.png?raw=true)
 
