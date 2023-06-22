@@ -105,6 +105,15 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		static const QString NOT_IN_SQL_EVENT_LOG_ID_TOKEN;	
 
 
+		static const QString IN_BEFORE_ID_TOKEN;
+		
+		static const QString NOT_IN_BEFORE_ID_TOKEN;
+		
+		static const QString IN_AFTER_ID_TOKEN;
+		
+		static const QString NOT_IN_AFTER_ID_TOKEN;
+
+	
 		static const QString IN_PRE_ID_TOKEN;
 		
 		static const QString NOT_IN_PRE_ID_TOKEN;

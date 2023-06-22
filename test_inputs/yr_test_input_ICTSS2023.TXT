@@ -1,7 +1,7 @@
 yr_sd_mealy_automaton_spec yr_sd_runtime_verif_language_EXAMPLE_realcase
 {
- START_STATE(d):NOT_IN_PRE(YR_ASSET,departements_produits.nom_departement_produit)
+ START_STATE(d):NOT_IN_BEFORE(YR_ASSET,departements_produits.nom_departement_produit)
   ->[in_sql_event_log('DELETE.departements_produits.YR_ASSET', STATE(d))]/'SELECT.departements_produits'->
-   FINAL_STATE(e):IN_POST(YR_ASSET,stocks.nom_departement_produit).
+   FINAL_STATE(e):IN_AFTER(YR_ASSET,stocks.nom_departement_produit).
 }
 

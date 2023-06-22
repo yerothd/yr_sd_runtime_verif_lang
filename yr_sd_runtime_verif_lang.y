@@ -132,10 +132,14 @@ sut_state_spec : state_property_specification	COLON_TOK algebra_set_specificatio
 algebra_set_specification : inside_algebra_set_specification 														{ }
 													| not_inside_algebra_set_specification												{ }
 													;
-in_spec : IN_PRE_TOK																																		{ }
+in_spec : IN_BEFORE_TOK 																																{ }
+				| IN_AFTER_TOK 																																	{ }
+			  | IN_PRE_TOK																																		{ }
 				| IN_POST_TOK																																		{ }
 				;
-not_in_spec : NOT_IN_PRE_TOK																														{ }
+not_in_spec : NOT_IN_BEFORE_TOK 																												{ }
+						| NOT_IN_AFTER_TOK  																												{ }
+					  | NOT_IN_PRE_TOK																														{ }
 						| NOT_IN_POST_TOK																														{ }
 						;
 inside_algebra_set_specification : in_spec 

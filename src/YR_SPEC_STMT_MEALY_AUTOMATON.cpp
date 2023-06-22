@@ -21,10 +21,19 @@ const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_SET_TRACE_ID_TOKEN("not_in_se
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_SQL_EVENT_LOG_ID_TOKEN("not_in_sql_event_log");
 
 
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_BEFORE_ID_TOKEN("IN_BEFORE");
+		
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_BEFORE_ID_TOKEN("NOT_IN_BEFORE");
+
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_AFTER_ID_TOKEN("IN_AFTER");
+
+const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_AFTER_ID_TOKEN("NOT_IN_AFTER");
+
+
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN("IN_PRE");
-		
+
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN("NOT_IN_PRE");
-		
+
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN("IN_POST");
 		
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN("NOT_IN_POST");
@@ -166,14 +175,18 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 
 	QString NOTin_pre__OR__NOTin_post = QString(notIN_PRE_tok__or__notIN_POST_tok);
 
-	if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
-																				 NOTin_pre__OR__NOTin_post))
+	if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_BEFORE_ID_TOKEN,
+																				  NOTin_pre__OR__NOTin_post)													 ||
+			YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
+																				  NOTin_pre__OR__NOTin_post))
 	{
 
 		_current_state->set_PRE_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
 	}
-	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN,
-																				 		  NOTin_pre__OR__NOTin_post))
+	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_AFTER_ID_TOKEN,
+																				 		   NOTin_pre__OR__NOTin_post)													||
+					 YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN,
+																				 		   NOTin_pre__OR__NOTin_post))
 	{
 		_current_state->set_POST_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
 	}
