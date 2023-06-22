@@ -19,8 +19,12 @@ IN_SQL_EVENT_LOG			"in_sql_event_log"
 NOT_IN_SQL_EVENT_LOG	"not_in_sql_event_log"
 in_set_trace					"in_set_trace"
 not_in_set_trace			"not_in_set_trace"
+in_before							"IN_BEFORE"
+in_after							"IN_AFTER"
 in_pre								"IN_PRE"
 in_post								"IN_POST"
+notin_before					"NOT_IN_BEFORE"
+notin_after						"NOT_IN_AFTER"
 notin_pre							"NOT_IN_PRE"
 notin_post						"NOT_IN_POST"
 error_state						"ERROR_STATE"
@@ -49,8 +53,12 @@ r_brace								"}"
 {NOT_IN_SQL_EVENT_LOG}	{ yylval.opt_val = new std::string(yytext); return NOT_IN_SQL_EVENT_LOG_TOK; }
 {in_set_trace}					{ yylval.opt_val = new std::string(yytext); return IN_SET_TRACE_TOK; }
 {not_in_set_trace}			{ yylval.opt_val = new std::string(yytext); return NOT_IN_SET_TRACE_TOK; }
+{in_before}							{ yylval.opt_val = new std::string(yytext); return IN_BEFORE_TOK; }
+{in_after}							{ yylval.opt_val = new std::string(yytext); return IN_AFTER_TOK; }
 {in_pre}								{ yylval.opt_val = new std::string(yytext); return IN_PRE_TOK; }
 {in_post}								{ yylval.opt_val = new std::string(yytext); return IN_POST_TOK; }
+{notin_before}					{ yylval.opt_val = new std::string(yytext); return NOT_IN_BEFORE_TOK; }
+{notin_after}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_AFTER_TOK; }
 {notin_pre}							{ yylval.opt_val = new std::string(yytext); return NOT_IN_PRE_TOK; }
 {notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
 {error_state}						{ yylval.opt_val = new std::string(yytext); return ERROR_STATE_TOK; }

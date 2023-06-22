@@ -42,8 +42,12 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	NOT_IN_SQL_EVENT_LOG_TOK
 %token	<opt_val>	IN_SET_TRACE_TOK
 %token	<opt_val>	NOT_IN_SET_TRACE_TOK
+%token	<opt_val>	IN_BEFORE_TOK
+%token	<opt_val>	IN_AFTER_TOK
 %token	<opt_val>	IN_PRE_TOK
 %token	<opt_val>	IN_POST_TOK
+%token	<opt_val>	NOT_IN_BEFORE_TOK
+%token	<opt_val>	NOT_IN_AFTER_TOK
 %token	<opt_val>	NOT_IN_PRE_TOK
 %token	<opt_val>	NOT_IN_POST_TOK
 %token	<opt_val>	START_STATE_TOK
@@ -66,8 +70,6 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %type	<opt_val>	not_inside_algebra_set_specification
 %type	<opt_val>	db_table
 %type	<opt_val>	db_column
-%type	<opt_val>	function_call
-%type	<opt_val>	function_id
 %type	<opt_val>	prog_variable
 %type <opt_val> edge_mealy_automaton_guard_cond
 %type	<opt_val>	sut_edge_mealy_automaton_spec
@@ -146,11 +148,6 @@ inside_algebra_set_specification : in_spec
 																																																																	   $3->c_str(),
 																																																																		 $5->c_str(),
 																																																																		 $7->c_str()); }
-																 |
-																	 in_spec 
-																 		LEFT_PARENTHESIS_TOK 
-																 			function_call COMA_TOK db_table DOT_TOK db_column 
-																		RIGHT_PARENTHESIS_TOK																{ }
 																 ;
 not_inside_algebra_set_specification : not_in_spec
 																		 		LEFT_PARENTHESIS_TOK 
@@ -160,16 +157,7 @@ not_inside_algebra_set_specification : not_in_spec
 																																																																				 $3->c_str(),
 																																																																		 		 $5->c_str(),
 																																																																		 		 $7->c_str()); }
-																		 |
-																			 not_in_spec
-																		 		LEFT_PARENTHESIS_TOK 
-																		 			function_call COMA_TOK db_table DOT_TOK db_column 
-																				RIGHT_PARENTHESIS_TOK
 																		 ;
-function_call : function_id LEFT_PARENTHESIS_TOK STRING_TOK RIGHT_PARENTHESIS_TOK
-						  ;
-function_id : ALPHA_NUM_TOK
-						;
 state_property_specification : STATE_TOK 
 														 		LEFT_PARENTHESIS_TOK 
 																	ALPHA_NUM_TOK 
