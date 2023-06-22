@@ -9,7 +9,6 @@ a.out
 *.dot
 *.output
 *.log
-*.pdf
 tok.h
 bison.c
 lex.c
