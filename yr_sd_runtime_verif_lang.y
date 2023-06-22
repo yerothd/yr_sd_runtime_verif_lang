@@ -124,8 +124,6 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK																									{ yr_printf("not
 										event_call COMA_TOK state_property_specification 		
 									RIGHT_PARENTHESIS_TOK																								 
 								 ;
-event_call : STRING_TOK 																																{ a_spec_stmt_ROOT->process_event_call($1->c_str()); }
-					 ;
 sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
 							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
 							 | start_state_property_specification	COLON_TOK algebra_set_specification	{ }
@@ -181,6 +179,8 @@ start_state_property_specification : START_STATE_TOK
 																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "start_state_property_specification"); 
 																																					a_spec_stmt_ROOT->PROCESS_START_STATE_spec($3->c_str()); }
 														 			 ;
+event_call : STRING_TOK 																																{ a_spec_stmt_ROOT->process_event_call($1->c_str()); }
+					 ;
 prog_variable : ALPHA_NUM_TOK		{ }
 				 ;
 db_table : ALPHA_NUM_TOK				{ }
