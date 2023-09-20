@@ -55,7 +55,7 @@ bison.o:	bison.c
 		$(CC) $(CFLAGS) -c bison.c -o bison.o
 
 bison.c:	yr_sd_runtime_verif_lang.y
-		mkdir -p ${OBJ_DIR}
+		mkdir -p lib ${OBJ_DIR}
 		bison -d -v yr_sd_runtime_verif_lang.y
 		cp yr_sd_runtime_verif_lang.tab.c bison.c
 		cmp -s yr_sd_runtime_verif_lang.tab.h tok.h || cp yr_sd_runtime_verif_lang.tab.h tok.h
