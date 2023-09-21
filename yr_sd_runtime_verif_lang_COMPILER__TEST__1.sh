@@ -6,7 +6,7 @@
 # CONSOLE AS THEY ARE EXECUTED.
 set -x
 
-yr_sd_runtime_verif_lang_comp < test_inputs/yr_test_input_1.TXT
+yr_sd_runtime_verif_lang_comp < test_inputs/yr_test_input_1.spec_sd_mealy
 
 
 # Replaces file name with prefix 'yr-db-runtime-verif-main-GENERATED'
