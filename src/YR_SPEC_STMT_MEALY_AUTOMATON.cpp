@@ -22,7 +22,7 @@ const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_SQL_EVENT_LOG_ID_TOKEN("not_i
 
 
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_BEFORE_ID_TOKEN("IN_BEFORE");
-		
+
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_BEFORE_ID_TOKEN("NOT_IN_BEFORE");
 
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_AFTER_ID_TOKEN("IN_AFTER");
@@ -35,15 +35,15 @@ const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN("IN_PRE");
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN("NOT_IN_PRE");
 
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::IN_POST_ID_TOKEN("IN_POST");
-		
+
 const QString YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_POST_ID_TOKEN("NOT_IN_POST");
 
 
 /*
  * ALL TOKEN DEFINED HERE ALIASES TOGETHER TO THE SAME MEANING.
  */
-const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::in_set_trace_ID_TOKEN = 
-{ 
+const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::in_set_trace_ID_TOKEN =
+{
 	IN_SET_TRACE_ID_TOKEN,			// 0
 	IN_SQL_EVENT_LOG_ID_TOKEN		// 1
 };
@@ -51,8 +51,8 @@ const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::in_set_trace_ID_TOKEN =
 
 /*
  * ALL TOKEN DEFINED HERE ALIASES TOGETHER TO THE SAME MEANING.
- */	
-const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::not_in_set_trace_ID_TOKEN = 
+ */
+const QList<QString> YR_SPEC_STMT_MEALY_AUTOMATON::not_in_set_trace_ID_TOKEN =
 {
 	NOT_IN_SET_TRACE_ID_TOKEN,			// 0
 	NOT_IN_SQL_EVENT_LOG_ID_TOKEN		// 1
@@ -67,7 +67,7 @@ YR_SPEC_STMT_MEALY_AUTOMATON::YR_SPEC_STMT_MEALY_AUTOMATON()
  _is_LAST_YR_PARSER_EVENT_method_call(false),
  _print_dot_file_WITH_SQL_EVENT_LOG(true)
 {
-    _a_monitor_mealy_machine = YR_CPP_MONITOR::CREATE_MONITOR();	
+    _a_monitor_mealy_machine = YR_CPP_MONITOR::CREATE_MONITOR();
 }
 
 
@@ -87,9 +87,9 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::set_current_TRACE_SPECIFICATION_ID_TOKEN(cons
 
 	if (first_time)
 	{
-		if ( YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN, 
+		if ( YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN,
 					IN_SQL_EVENT_LOG_ID_TOKEN) ||
-				 YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN, 
+				 YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN,
 					IN_SQL_EVENT_LOG_ID_TOKEN) )
 		{
 			_print_dot_file_WITH_SQL_EVENT_LOG = true;
@@ -108,16 +108,16 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::set_current_TRACE_SPECIFICATION_ID_TOKEN(cons
 void YR_SPEC_STMT_MEALY_AUTOMATON::SET_not_in_set_trace()
 {
 	_PROCESS_notinset_set_TRACE_SPECIFICATION = true;
-	
+
 	//'false' means THIS IS a 'not_in_set_trace' specification
 	_set_notinset_INSET_trace = false;
 }
-		
+
 
 void YR_SPEC_STMT_MEALY_AUTOMATON::SET_in_set_trace()
 {
 	_PROCESS_notinset_set_TRACE_SPECIFICATION = true;
-	
+
 	//'true' means THIS IS an 'in_set_trace' specification
 	_set_notinset_INSET_trace = true;
 }
@@ -129,7 +129,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 																						 const char *db_table,
 																						 const char *db_column)
 {
-	YR_CPP_MONITOR_STATE *_current_state = 
+	YR_CPP_MONITOR_STATE *_current_state =
 			_a_monitor_mealy_machine->find_yr_monitor_state(_CURRENT_state_name);
 
 	assert (0 != _current_state);
@@ -166,7 +166,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 																							 const char *db_table,
 																							 const char *db_column)
 {
-	YR_CPP_MONITOR_STATE *_current_state = 
+	YR_CPP_MONITOR_STATE *_current_state =
 			_a_monitor_mealy_machine->find_yr_monitor_state(_CURRENT_state_name);
 
 	assert (0 != _current_state);
@@ -206,11 +206,11 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 
 	if (_is_LAST_YR_PARSER_EVENT_method_call)
 	{
-		YR_CPP_MONITOR_EDGE *A_RESULTING_CREATED_EDGE = 
+		YR_CPP_MONITOR_EDGE *A_RESULTING_CREATED_EDGE =
 			_a_monitor_mealy_machine->create_yr_monitor_edge(_PREVIOUS_state_name,
 																											 _CURRENT_state_name,
 																											 _last_EVENT_METHOD_CALL_name);
-		
+
 		if (0 != A_RESULTING_CREATED_EDGE)
 		{
 			bool an_edge_was_created = (0 != A_RESULTING_CREATED_EDGE);
@@ -220,25 +220,25 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 				YR_CPP_notinset_inset_TRACE_expression *A_NOTINSET_inset__trace_expression
 					= new YR_CPP_notinset_inset_TRACE_expression(_set_notinset_INSET_trace,
 																						 					 _current_TRACE_SPECIFICATION_EVENT_TOKEN,
-																						 					 _current_TRACE_SPECIFICATION_state_name);				
+																						 					 _current_TRACE_SPECIFICATION_state_name);
 
 				A_RESULTING_CREATED_EDGE->set_GUARDED_CONDITION(A_NOTINSET_inset__trace_expression);
 
-				
+
 				QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> [%2(%3, %4)] True/%5 -> %6) is created")
 															.arg(_PREVIOUS_state_name,
 																	 _current_TRACE_SPECIFICATION_ID_TOKEN,
 																	 _current_TRACE_SPECIFICATION_EVENT_TOKEN,
 																	 _current_TRACE_SPECIFICATION_state_name,
 																	 _last_EVENT_METHOD_CALL_name,
-																 	 _CURRENT_state_name), 
+																 	 _CURRENT_state_name),
 														 			 BOOL_TO_STRING(an_edge_was_created));
 
-				
+
 				_PROCESS_notinset_set_TRACE_SPECIFICATION = false;
-		
+
 				_current_TRACE_SPECIFICATION_ID_TOKEN.clear();
-				
+
 				_current_TRACE_SPECIFICATION_EVENT_TOKEN.clear();
 
 				_current_TRACE_SPECIFICATION_state_name.clear();
@@ -249,7 +249,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 				QDEBUG_STRING_OUTPUT_2(QString("[_process_edge_creation_] an edge (%1 -> True/%2 -> %3) is created")
 																.arg(_PREVIOUS_state_name,
 																		 _last_EVENT_METHOD_CALL_name,
-																	 	 _CURRENT_state_name), 
+																	 	 _CURRENT_state_name),
 															 			 BOOL_TO_STRING(an_edge_was_created));
 			}
 		}
@@ -269,10 +269,10 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_call(const char *STRING_TOK)
 		return ;
 	}
 
-	_is_LAST_YR_PARSER_EVENT_method_call = true;	
-	
+	_is_LAST_YR_PARSER_EVENT_method_call = true;
+
 	YR_PARSER_SET_last_EVENT_METHOD_CALL_name(STRING_TOK);
-		
+
 	QDEBUG_STRING_OUTPUT_2("[process_event_call] STRING_TOK", STRING_TOK);
 }
 
@@ -281,7 +281,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_call(const char *STRING_TOK)
 void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 {
 	_CURRENT_state_name = STATE_TOK;
-	
+
 	if (is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 	{
 		_current_TRACE_SPECIFICATION_state_name = _CURRENT_state_name;
@@ -289,7 +289,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 
 	if (0 != _a_monitor_mealy_machine)
 	{
-		YR_CPP_MONITOR_STATE * A_STATE = 
+		YR_CPP_MONITOR_STATE * A_STATE =
 			_a_monitor_mealy_machine->create_yr_monitor_state(STATE_TOK);
 
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
@@ -302,7 +302,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] STATE_TOK", _PREVIOUS_state_name);
 	}
-	
+
 	_is_LAST_YR_PARSER_EVENT_method_call = false;
 }
 
@@ -310,10 +310,10 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_FINAL_STATE_spec(const char *FINAL_STATE_TOK)
 {
 	_CURRENT_state_name = FINAL_STATE_TOK;
-	
+
 	if (0 != _a_monitor_mealy_machine)
 	{
-		YR_CPP_MONITOR_STATE * A_FINAL_STATE = 
+		YR_CPP_MONITOR_STATE * A_FINAL_STATE =
 			_a_monitor_mealy_machine->create_yr_monitor_state(FINAL_STATE_TOK);
 
 		if (0 != A_FINAL_STATE)
@@ -325,17 +325,17 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_FINAL_STATE_spec(const char *FINAL_ST
 		{
 			_process_edge_creation_();
 		}
-		
+
 		YR_PARSER_SET_PREVIOUS_state_name(FINAL_STATE_TOK);
-		
-		
-		QDEBUG_STRING_OUTPUT_2_N("[PROCESS_FINAL_STATE_spec] state count", 
-														 _a_monitor_mealy_machine->YR_CPP_monitor_state_count());	
-		
+
+
+		QDEBUG_STRING_OUTPUT_2_N("[PROCESS_FINAL_STATE_spec] state count",
+														 _a_monitor_mealy_machine->YR_CPP_monitor_state_count());
+
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_FINAL_STATE_spec] FINAL_STATE_TOK", _PREVIOUS_state_name);
 	}
-		
-	_is_LAST_YR_PARSER_EVENT_method_call = false;	
+
+	_is_LAST_YR_PARSER_EVENT_method_call = false;
 }
 
 
@@ -345,7 +345,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 
 	if (0 != _a_monitor_mealy_machine)
 	{
-		YR_CPP_MONITOR_STATE * A_START_STATE = 
+		YR_CPP_MONITOR_STATE * A_START_STATE =
 			_a_monitor_mealy_machine->create_yr_monitor_state(START_STATE_TOK);
 
 		if (0 != A_START_STATE)
@@ -355,15 +355,15 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 		{
-			_process_edge_creation_();	
+			_process_edge_creation_();
 		}
-		
+
 		YR_PARSER_SET_PREVIOUS_state_name(START_STATE_TOK);
-		
+
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_START_STATE_spec] START_STATE_TOK", _PREVIOUS_state_name);
 	}
-		
+
 	_is_LAST_YR_PARSER_EVENT_method_call = false;
 }
 
@@ -373,20 +373,40 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 {
 	if (0 != _a_monitor_mealy_machine)
 	{
-		_a_monitor_mealy_machine->set_RUNTIME_MONITOR_NAME(QString(YR_SD_MEALY_AUTOMATON_SPEC_name));
-	
+        QString YR_SD_MEALY_AUTOMATON_SPEC_name__string =
+                QString(YR_SD_MEALY_AUTOMATON_SPEC_name);
+
+		_a_monitor_mealy_machine
+            ->set_RUNTIME_MONITOR_NAME(YR_SD_MEALY_AUTOMATON_SPEC_name__string);
+
 
 		_a_monitor_mealy_machine->print_TO_dot_FILE(_print_dot_file_WITH_SQL_EVENT_LOG);
 
 
-		_a_monitor_mealy_machine->YR_generate_cplusplus_headers_files__AND__SAVE__TO__DISK();	
 
-		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files__AND__SAVE__TO__DISK();																						;
-		
+		_a_monitor_mealy_machine
+            ->YR_generate_cplusplus_headers_files__AND__SAVE__TO__DISK
+                (QString("%1-GENERATED.hpp")
+                    .arg(YR_SD_MEALY_AUTOMATON_SPEC_name__string));
 
-		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_name", 
+
+		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files__AND__SAVE__TO__DISK
+                (QString("%1-GENERATED.cpp")
+                    .arg(YR_SD_MEALY_AUTOMATON_SPEC_name__string));
+
+
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_mealy_automaton_spec] YR_SD_MEALY_AUTOMATON_SPEC_name",
 				_a_monitor_mealy_machine->get_RUNTIME_MONITOR_NAME());
+
+
+        _a_monitor_mealy_machine
+            ->save_yr_SOURCE_FILES("outputted_SD_MEALY_MACHINE_NAME.txt",
+                                   YR_SD_MEALY_AUTOMATON_SPEC_name__string);
 	}
-	
+
 	_is_LAST_YR_PARSER_EVENT_method_call = false;
 }
+
+
+
+
