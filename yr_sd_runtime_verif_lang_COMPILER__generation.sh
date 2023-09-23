@@ -2,24 +2,26 @@
 # @AUTEUR: DR.-ING. DIPL.-INF. XAVIER NOUMBISSI NOUNDOU
 #
 
-USAGE="Usage: $(basename $0) <-i INPUT_FILE> [-o OUTPUT_FILE]"
+USAGE="Usage: $(basename $0) <-i INPUT_FILE> [-d OUTPUT_FOLDER]"
 
 
 if [ $# -lt 1 ]; then
   echo "$USAGE"
 fi
 
-inputfileFlag=
-outputfileFlag=
 
-while getopts 'i:o:' OPTION
+inputfileFlag=
+outputdirFlag=
+
+
+while getopts 'i:d:' OPTION
 do
   case $OPTION in
     i)	inputfileFlag=1
       	ival="$OPTARG"
 	;;
-    o)	outputfileFlag=1
-      	oval="$OPTARG"
+		d)	outputdirFlag=1
+      	odval="$OPTARG"
 	;;
     ?)	printf "$USAGE" >&2
         exit 1
@@ -39,9 +41,9 @@ else
 fi
 
 
-if [ $outputfileFlag ]; then
-	OUTPUT_SOURCE_CODE_FILE=${oval}
-	echo "|output file: --- ${OUTPUT_SOURCE_CODE_FILE} --- |"
+if [ $outputdirFlag ]; then
+	OUTPUT_SOURCE_CODE_FOLDER=${odval}
+	echo "|output file: --- ${OUTPUT_SOURCE_CODE_FOLDER} --- |"
 fi
 
 
@@ -64,8 +66,11 @@ GENERATED_FILE_PREFIX="${MEALY_MACHINE_NAME}-GENERATED"
 NEW_FILE_FROM_GENERATED_FILE_PREFIX="${MEALY_MACHINE_NAME}"
 
 
-if [ $outputfileFlag ]; then
-	NEW_FILE_FROM_GENERATED_FILE_PREFIX="${OUTPUT_SOURCE_CODE_FILE}"
+if [ $outputdirFlag ]; then
+
+	mkdir -p "${OUTPUT_SOURCE_CODE_FOLDER}"
+
+	NEW_FILE_FROM_GENERATED_FILE_PREFIX="${OUTPUT_SOURCE_CODE_FOLDER}/${MEALY_MACHINE_NAME}"
 fi
 
 
