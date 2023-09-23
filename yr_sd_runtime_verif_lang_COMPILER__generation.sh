@@ -43,7 +43,7 @@ fi
 
 if [ $outputdirFlag ]; then
 	OUTPUT_SOURCE_CODE_FOLDER=${odval}
-	echo "|output file: --- ${OUTPUT_SOURCE_CODE_FOLDER} --- |"
+	echo "|output folder for generated source code files: --- ${OUTPUT_SOURCE_CODE_FOLDER} --- |"
 fi
 
 
@@ -53,7 +53,11 @@ fi
 set -x
 
 
-$(yr_sd_runtime_verif_lang_comp < ${INPUT_SD_MEALY_FILE})
+FULL_PATH_DIR_AUXILIARY_SCRIPTS=$(bash yerothx-find-current-bashscript-full-dir-only-path.sh "$0")
+
+echo "$FULL_PATH_DIR_AUXILIARY_SCRIPTS"
+
+${FULL_PATH_DIR_AUXILIARY_SCRIPTS}/yr_sd_runtime_verif_lang_comp < ${INPUT_SD_MEALY_FILE}
 
 
 MEALY_MACHINE_NAME=$(cat outputted_SD_MEALY_MACHINE_NAME.txt)
