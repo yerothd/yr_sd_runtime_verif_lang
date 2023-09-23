@@ -86,10 +86,10 @@ yerothx-rename-files.sh -o "${GENERATED_FILE_PREFIX}" \
 # by string 'yr-db-runtime-verif-main'.
 
 yerothx-replace-string.sh -o "${GENERATED_FILE_PREFIX}" \
-	-n "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}" "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".hpp
+	-n "${MEALY_MACHINE_NAME}" "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".hpp
 
 yerothx-replace-string.sh -o "${GENERATED_FILE_PREFIX}" \
-	-n "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}" "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".cpp
+	-n "${MEALY_MACHINE_NAME}" "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".cpp
 
 astyle "${NEW_FILE_FROM_GENERATED_FILE_PREFIX}".hpp
 
