@@ -386,12 +386,15 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 
 		_a_monitor_mealy_machine
             ->YR_generate_cplusplus_headers_files__AND__SAVE__TO__DISK
-                (QString("%1-GENERATED.hpp")
+                (YR_SD_MEALY_AUTOMATON_SPEC_name__string,
+                 QString("%1-GENERATED.hpp")
                     .arg(YR_SD_MEALY_AUTOMATON_SPEC_name__string));
 
 
+        //YR_SD_MEALY_AUTOMATON_SPEC_name__string represents a class name
 		_a_monitor_mealy_machine->YR_generate_cplusplus_sources_files__AND__SAVE__TO__DISK
-                (QString("%1-GENERATED.cpp")
+                (YR_SD_MEALY_AUTOMATON_SPEC_name__string,
+                 QString("%1-GENERATED.cpp")
                     .arg(YR_SD_MEALY_AUTOMATON_SPEC_name__string));
 
 
