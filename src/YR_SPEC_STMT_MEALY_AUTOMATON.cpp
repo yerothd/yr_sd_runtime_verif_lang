@@ -380,8 +380,11 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
             ->set_RUNTIME_MONITOR_NAME(YR_SD_MEALY_AUTOMATON_SPEC_name__string);
 
 
-		_a_monitor_mealy_machine->print_TO_dot_FILE(_print_dot_file_WITH_SQL_EVENT_LOG);
+        bool yr_view_pdf_file = false;
 
+		_a_monitor_mealy_machine
+            ->print_TO_dot_FILE(_print_dot_file_WITH_SQL_EVENT_LOG,
+                                yr_view_pdf_file);
 
 
 		_a_monitor_mealy_machine
