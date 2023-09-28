@@ -27,6 +27,7 @@ notin_before					"NOT_IN_BEFORE"
 notin_after						"NOT_IN_AFTER"
 notin_pre							"NOT_IN_PRE"
 notin_post						"NOT_IN_POST"
+end_state							"END_STATE"
 error_state						"ERROR_STATE"
 final_state						"FINAL_STATE"
 begin_state						"BEGIN_STATE"
@@ -62,6 +63,7 @@ r_brace								"}"
 {notin_after}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_AFTER_TOK; }
 {notin_pre}							{ yylval.opt_val = new std::string(yytext); return NOT_IN_PRE_TOK; }
 {notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
+{end_state}							{ yylval.opt_val = new std::string(yytext); return END_STATE_TOK; }
 {error_state}						{ yylval.opt_val = new std::string(yytext); return ERROR_STATE_TOK; }
 {final_state}						{ yylval.opt_val = new std::string(yytext); return FINAL_STATE_TOK; }
 {begin_state}						{ yylval.opt_val = new std::string(yytext); return BEGIN_STATE_TOK; }
