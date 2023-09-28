@@ -29,6 +29,7 @@ notin_pre							"NOT_IN_PRE"
 notin_post						"NOT_IN_POST"
 error_state						"ERROR_STATE"
 final_state						"FINAL_STATE"
+begin_state						"BEGIN_STATE"
 start_state						"START_STATE"
 state									"STATE"
 string								"'"[ \t\n\.?_a-zA-Z0-9]*"'"
@@ -63,6 +64,7 @@ r_brace								"}"
 {notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
 {error_state}						{ yylval.opt_val = new std::string(yytext); return ERROR_STATE_TOK; }
 {final_state}						{ yylval.opt_val = new std::string(yytext); return FINAL_STATE_TOK; }
+{begin_state}						{ yylval.opt_val = new std::string(yytext); return BEGIN_STATE_TOK; }
 {start_state}						{ yylval.opt_val = new std::string(yytext); return START_STATE_TOK; }
 {state}									{ yylval.opt_val = new std::string(yytext); return STATE_TOK; }
 {string}								{ yylval.opt_val = new std::string(yytext); return STRING_TOK; }
