@@ -88,7 +88,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::set_current_TRACE_SPECIFICATION_ID_TOKEN(cons
 	if (first_time)
 	{
 		if ( YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN,
-					IN_SQL_EVENT_LOG_ID_TOKEN) ||
+					NOT_IN_SQL_EVENT_LOG_ID_TOKEN) ||
 				 YR_CPP_UTILS::isEqualsCaseInsensitive(_current_TRACE_SPECIFICATION_ID_TOKEN,
 					IN_SQL_EVENT_LOG_ID_TOKEN) )
 		{
@@ -147,7 +147,6 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 			YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_PRE_ID_TOKEN,
 																				  in_pre__OR__in_post))
 	{
-
 		_current_state->set_PRE_CONDITION_IN(QString(prog_variable), DB_TABLE__db_column);
 	}
 	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::IN_AFTER_ID_TOKEN,
@@ -184,7 +183,6 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 			YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_PRE_ID_TOKEN,
 																				  NOTin_pre__OR__NOTin_post))
 	{
-
 		_current_state->set_PRE_CONDITION_notIN(QString(prog_variable), DB_TABLE__db_column);
 	}
 	else if (YR_CPP_UTILS::isEqualsCaseSensitive(YR_SPEC_STMT_MEALY_AUTOMATON::NOT_IN_AFTER_ID_TOKEN,
@@ -373,14 +371,14 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 {
 	if (0 != _a_monitor_mealy_machine)
 	{
-        QString YR_SD_MEALY_AUTOMATON_SPEC_name__string =
-                QString(YR_SD_MEALY_AUTOMATON_SPEC_name);
+     QString YR_SD_MEALY_AUTOMATON_SPEC_name__string = 
+			 	QString(YR_SD_MEALY_AUTOMATON_SPEC_name);
 
 		_a_monitor_mealy_machine
             ->set_RUNTIME_MONITOR_NAME(YR_SD_MEALY_AUTOMATON_SPEC_name__string);
 
 
-        bool yr_view_pdf_file = false;
+    bool yr_view_pdf_file = false;
 
 		_a_monitor_mealy_machine
             ->print_TO_dot_FILE(_print_dot_file_WITH_SQL_EVENT_LOG,
