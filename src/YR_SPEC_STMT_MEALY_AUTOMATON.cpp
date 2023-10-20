@@ -293,10 +293,9 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 		{
 			_process_edge_creation_();
+
+            YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
 		}
-
-		YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
-
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] STATE_TOK", _PREVIOUS_state_name);
 	}
@@ -371,7 +370,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 {
 	if (0 != _a_monitor_mealy_machine)
 	{
-     QString YR_SD_MEALY_AUTOMATON_SPEC_name__string = 
+     QString YR_SD_MEALY_AUTOMATON_SPEC_name__string =
 			 	QString(YR_SD_MEALY_AUTOMATON_SPEC_name);
 
 		_a_monitor_mealy_machine
