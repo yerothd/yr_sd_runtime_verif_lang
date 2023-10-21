@@ -8,7 +8,6 @@
 #include "YR_SPEC_STMT_MEALY_AUTOMATON.hpp"
 
 #include "yr_sd_runtime_verif/YR_CPP_MONITOR_EDGE.hpp"
-#include "yr_sd_runtime_verif/YR_CPP_MONITOR_STATE.hpp"
 #include "yr_sd_runtime_verif/YR_CPP_MONITOR.hpp"
 
 
@@ -195,16 +194,19 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 }
 
 
-void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
+YR_CPP_MONITOR_EDGE *YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 {
 	if (is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 	{
-		return ;
+		return 0;
 	}
+
+
+	YR_CPP_MONITOR_EDGE *A_RESULTING_CREATED_EDGE = 0;
 
 	if (_is_LAST_YR_PARSER_EVENT_method_call)
 	{
-		YR_CPP_MONITOR_EDGE *A_RESULTING_CREATED_EDGE =
+		A_RESULTING_CREATED_EDGE =
 			_a_monitor_mealy_machine->create_yr_monitor_edge(_PREVIOUS_state_name,
 																											 _CURRENT_state_name,
 																											 _last_EVENT_METHOD_CALL_name);
@@ -252,6 +254,8 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::_process_edge_creation_()
 			}
 		}
 	}
+
+	return A_RESULTING_CREATED_EDGE;
 }
 
 
@@ -294,7 +298,7 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 		{
 			_process_edge_creation_();
 
-            YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
+      YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
 		}
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] STATE_TOK", _PREVIOUS_state_name);
@@ -313,14 +317,21 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_FINAL_STATE_spec(const char *FINAL_ST
 		YR_CPP_MONITOR_STATE * A_FINAL_STATE =
 			_a_monitor_mealy_machine->create_yr_monitor_state(FINAL_STATE_TOK);
 
+
 		if (0 != A_FINAL_STATE)
 		{
 			A_FINAL_STATE->set_FINAL_STATE(true);
 		}
 
+
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 		{
-			_process_edge_creation_();
+			YR_CPP_MONITOR_EDGE *a_resulting_edge = _process_edge_creation_();
+
+			if (0 != a_resulting_edge)
+			{
+				_all_final_state_LEADING_edges.append(a_resulting_edge);
+			}
 		}
 
 		YR_PARSER_SET_PREVIOUS_state_name(FINAL_STATE_TOK);
@@ -375,6 +386,28 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 
 		_a_monitor_mealy_machine
             ->set_RUNTIME_MONITOR_NAME(YR_SD_MEALY_AUTOMATON_SPEC_name__string);
+
+
+		YR_CPP_MONITOR_STATE *A_SOURCE_state = 0;
+		YR_CPP_MONITOR_STATE *A_TARGET_state = 0;		
+		YR_CPP_MONITOR_EDGE *A_FINAL_STATE_leading_edge = 0;
+		for (uint i = 0; i < _all_final_state_LEADING_edges.size(); ++i)
+		{
+			A_FINAL_STATE_leading_edge = _all_final_state_LEADING_edges.at(i);
+
+			if (0 != A_FINAL_STATE_leading_edge)
+			{
+				A_SOURCE_state = A_FINAL_STATE_leading_edge->get_SOURCE_STATE();
+				A_TARGET_state = A_FINAL_STATE_leading_edge->get_TARGET_STATE();
+			
+				if (0 != A_SOURCE_state &&
+						0 != A_TARGET_state)
+				{
+					_a_monitor_mealy_machine->set_Recovery_action(A_SOURCE_state,
+																												A_TARGET_state);
+				}				
+			}
+		}
 
 
     bool yr_view_pdf_file = false;

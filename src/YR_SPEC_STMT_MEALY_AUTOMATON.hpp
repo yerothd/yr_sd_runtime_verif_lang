@@ -13,6 +13,8 @@
 #include <QtCore/QString>
 
 
+#include "yr_sd_runtime_verif/YR_CPP_MONITOR_STATE.hpp"
+
 
 class YR_CPP_MONITOR_EDGE;
 class YR_CPP_MONITOR_STATE;
@@ -66,15 +68,16 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 		/* processing edges methods */
 
-		virtual void _process_edge_creation_();
+		virtual YR_CPP_MONITOR_EDGE *_process_edge_creation_();
 		
 		virtual void process_event_call(const char *STRING_TOK);
 	
 		
-		/* PROCESSING STATES METHODS */	
-		virtual void PROCESS_STATE_spec(const char *START_STATE_TOK);
+		/* PROCESSING STATES METHODS */
+
+		virtual void PROCESS_STATE_spec(const char *STATE_TOK);
 		
-		virtual void PROCESS_FINAL_STATE_spec(const char *START_STATE_TOK);
+		virtual void PROCESS_FINAL_STATE_spec(const char *FINAL_STATE_TOK);
 		
 		virtual void PROCESS_START_STATE_spec(const char *START_STATE_TOK);
 		
@@ -122,6 +125,9 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		
 		static const QString NOT_IN_POST_ID_TOKEN;
 
+		
+		QList<YR_CPP_MONITOR_EDGE *> _all_final_state_LEADING_edges;
+		
 
 		static const QList<QString> in_set_trace_ID_TOKEN;
 		
