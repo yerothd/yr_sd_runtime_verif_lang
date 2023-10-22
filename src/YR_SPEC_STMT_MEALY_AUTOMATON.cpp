@@ -288,20 +288,39 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 	QString db_table = DB_TABLE_STRING_TOK;
 
 
-	QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] SQL_recovery_query_string: ",
-													SQL_recovery_query_string);
+	//QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] * SQL_recovery_query_string: ",
+	//												SQL_recovery_query_string);
 	
-	QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] db_table: ",
-													db_table);
+	//QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] db_table: ",
+	//												db_table);
 
 	
-	YR_CPP_MONITOR_STATE * A_PREVIOUS_STATE_instance =
-		_ALL_STATE_NAME__to__Monitor_State_Instance
-			.value(_PREVIOUS_state_name);
+	YR_CPP_MONITOR_STATE * A_PREVIOUS_STATE_instance = 0;
 
-	YR_CPP_MONITOR_STATE * A_CURRENT_ERROR_ACCEPTING_STATE_instance =
-		_ALL_STATE_NAME__to__Monitor_State_Instance
-			.value(_CURRENT_state_name);
+	YR_CPP_MONITOR_STATE * A_CURRENT_ERROR_ACCEPTING_STATE_instance = 0;
+
+	for (unsigned k = 0; k < _all_final_state_LEADING_edges.size(); ++k)
+	{
+		YR_CPP_MONITOR_EDGE *an_final_leading_edge =
+			_all_final_state_LEADING_edges.at(k);
+
+		if (0 != an_final_leading_edge)
+		{
+			A_CURRENT_ERROR_ACCEPTING_STATE_instance = 
+					an_final_leading_edge->get_TARGET_STATE();
+
+			if (0 != A_CURRENT_ERROR_ACCEPTING_STATE_instance)
+			{
+				if (YR_CPP_UTILS::isEqualsCaseInsensitive
+							(A_CURRENT_ERROR_ACCEPTING_STATE_instance->get_MONITOR_STATE_NAME(),
+							 _CURRENT_state_name))
+				{
+					A_PREVIOUS_STATE_instance = an_final_leading_edge->get_SOURCE_STATE();
+				}
+			}
+		}	
+	}
+
 
 	if (0 != A_CURRENT_ERROR_ACCEPTING_STATE_instance)
 	{
@@ -309,9 +328,15 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::
 			->Set_SQL_RECOVERY_QUERY_STRING(SQL_recovery_query_string);
 	}
 
-	_a_monitor_mealy_machine
+
+	if (0 !=  A_PREVIOUS_STATE_instance)
+	{
+		QDEBUG_STRING_OUTPUT_1("[PROCESS_recovery_sql_query_spec] Calling set_Recovery_action");
+
+		_a_monitor_mealy_machine
 			->set_Recovery_action(A_PREVIOUS_STATE_instance,
 														A_CURRENT_ERROR_ACCEPTING_STATE_instance);
+	}
 }
 
 
@@ -338,12 +363,14 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 		{
+			QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] (previous) STATE_TOK", _PREVIOUS_state_name);
+			QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] (current) STATE_TOK", _CURRENT_state_name);
+
 			_process_edge_creation_();
 
       YR_PARSER_SET_PREVIOUS_state_name(STATE_TOK);
 		}
 
-		QDEBUG_STRING_OUTPUT_2("[PROCESS_STATE_spec] STATE_TOK", _PREVIOUS_state_name);
 	}
 
 	_is_LAST_YR_PARSER_EVENT_method_call = false;
@@ -377,7 +404,9 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_FINAL_STATE_spec(const char *FINAL_ST
 		}
 
 		YR_PARSER_SET_PREVIOUS_state_name(FINAL_STATE_TOK);
-
+		
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_FINAL_STATE_spec] (previous) STATE_TOK", _PREVIOUS_state_name);
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_FINAL_STATE_spec] (current) STATE_TOK", _CURRENT_state_name);
 
 		QDEBUG_STRING_OUTPUT_2_N("[PROCESS_FINAL_STATE_spec] state count",
 														 _a_monitor_mealy_machine->YR_CPP_monitor_state_count());
@@ -409,7 +438,9 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_START_STATE_spec(const char *START_ST
 		}
 
 		YR_PARSER_SET_PREVIOUS_state_name(START_STATE_TOK);
-
+		
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_START_STATE_spec] (previous) STATE_TOK", _PREVIOUS_state_name);
+		QDEBUG_STRING_OUTPUT_2("[PROCESS_START_STATE_spec] (current) STATE_TOK", _CURRENT_state_name);
 
 		QDEBUG_STRING_OUTPUT_2("[PROCESS_START_STATE_spec] START_STATE_TOK", _PREVIOUS_state_name);
 	}

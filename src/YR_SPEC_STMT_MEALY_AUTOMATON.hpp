@@ -101,12 +101,17 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 
 	protected:
 
-		inline virtual void YR_PARSER_SET_last_EVENT_METHOD_CALL_name(const char *last_EVENT_METHOD_CALL_name)
+		virtual inline void YR_PARSER_SET_last_EVENT_METHOD_CALL_name(const char *last_EVENT_METHOD_CALL_name)
 		{
 			_last_EVENT_METHOD_CALL_name = QString(last_EVENT_METHOD_CALL_name);
 		}
 
-		inline virtual void YR_PARSER_SET_PREVIOUS_state_name (const char *a_PREVIOUS_state_name)
+		virtual inline void YR_PARSER_SET_PREVIOUS_state_name (QString a_PREVIOUS_state_name)
+		{
+			_PREVIOUS_state_name = a_PREVIOUS_state_name;
+		}
+
+		virtual inline void YR_PARSER_SET_PREVIOUS_state_name (const char *a_PREVIOUS_state_name)
 		{
 			_PREVIOUS_state_name = QString(a_PREVIOUS_state_name);
 		}
