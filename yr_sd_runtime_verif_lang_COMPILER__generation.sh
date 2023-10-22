@@ -7,6 +7,7 @@ USAGE="Usage: $(basename $0) <-i INPUT_FILE> [-d OUTPUT_FOLDER]"
 
 if [ $# -lt 1 ]; then
   echo "$USAGE"
+	exit 1
 fi
 
 
