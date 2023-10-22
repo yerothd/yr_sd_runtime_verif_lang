@@ -210,8 +210,12 @@ final_state_auto_property_specification : END_STATE_AUTO_TOK
 																				;
 recovery_sql_query_spec : RECOVERY_SQL_QUERY_TOK
 													 LEFT_PARENTHESIS_TOK 
+														 db_table
+														 COMA_TOK
 														 STRING_TOK											
-													 RIGHT_PARENTHESIS_TOK						{ yr_printf($3->c_str(), "recovery_sql_query_spec"); }
+													 RIGHT_PARENTHESIS_TOK						{ yr_printf($5->c_str(), "recovery_sql_query_spec");
+																															a_spec_stmt_ROOT->PROCESS_recovery_sql_query_spec($3->c_str(),
+																																																								$5->c_str()); }
 												;
 start_state_property_specification : START_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 

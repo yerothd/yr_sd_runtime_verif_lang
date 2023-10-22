@@ -72,7 +72,21 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		
 		virtual void process_event_call(const char *STRING_TOK);
 	
+
+
+		/**
+		 * PROCESSING SQL RECOVERY QUERY for AUTO RECOVERY states (
+		 * STATES: END_STATE_AUTO, FINAL_STATE_AUTO, ERROR_STATE_AUTO
+		 *
+		 * If a token "yr_id" is found in the recovery SQL query
+		 * string, it will bve replaced by:
+		 * "(SELECT id FROM stocks ORDER BY id DESC LIMIT 0, 1)"
+		 */
 		
+		virtual void PROCESS_recovery_sql_query_spec(const char *DB_TABLE_STRING_TOK,
+																								 const char *RECOVERY_SQL_QUERY_TOK);
+
+
 		/* PROCESSING STATES METHODS */
 
 		virtual void PROCESS_STATE_spec(const char *STATE_TOK);
@@ -83,6 +97,7 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		
 
 		virtual void PROCESS_mealy_automaton_spec(const char *YR_SD_MEALY_AUTOMATON_SPEC_name);
+
 
 	protected:
 
@@ -125,6 +140,8 @@ class YR_SPEC_STMT_MEALY_AUTOMATON
 		
 		static const QString NOT_IN_POST_ID_TOKEN;
 
+	
+		QMap<QString, YR_CPP_MONITOR_STATE *> _ALL_STATE_NAME__to__Monitor_State_Instance;
 		
 		QList<YR_CPP_MONITOR_EDGE *> _all_final_state_LEADING_edges;
 		

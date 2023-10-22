@@ -279,6 +279,42 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::process_event_call(const char *STRING_TOK)
 }
 
 
+void YR_SPEC_STMT_MEALY_AUTOMATON::
+			PROCESS_recovery_sql_query_spec(const char *DB_TABLE_STRING_TOK,
+																			const char *RECOVERY_SQL_QUERY_TOK)
+{
+	QString SQL_recovery_query_string = RECOVERY_SQL_QUERY_TOK;
+	
+	QString db_table = DB_TABLE_STRING_TOK;
+
+
+	QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] SQL_recovery_query_string: ",
+													SQL_recovery_query_string);
+	
+	QDEBUG_STRING_OUTPUT_2("[PROCESS_recovery_sql_query_spec] db_table: ",
+													db_table);
+
+	
+	YR_CPP_MONITOR_STATE * A_PREVIOUS_STATE_instance =
+		_ALL_STATE_NAME__to__Monitor_State_Instance
+			.value(_PREVIOUS_state_name);
+
+	YR_CPP_MONITOR_STATE * A_CURRENT_ERROR_ACCEPTING_STATE_instance =
+		_ALL_STATE_NAME__to__Monitor_State_Instance
+			.value(_CURRENT_state_name);
+
+	if (0 != A_CURRENT_ERROR_ACCEPTING_STATE_instance)
+	{
+		A_CURRENT_ERROR_ACCEPTING_STATE_instance
+			->Set_SQL_RECOVERY_QUERY_STRING(SQL_recovery_query_string);
+	}
+
+	_a_monitor_mealy_machine
+			->set_Recovery_action(A_PREVIOUS_STATE_instance,
+														A_CURRENT_ERROR_ACCEPTING_STATE_instance);
+}
+
+
 /* PROCESSING STATES METHODS */
 void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 {
@@ -293,6 +329,12 @@ void YR_SPEC_STMT_MEALY_AUTOMATON::PROCESS_STATE_spec(const char *STATE_TOK)
 	{
 		YR_CPP_MONITOR_STATE * A_STATE =
 			_a_monitor_mealy_machine->create_yr_monitor_state(STATE_TOK);
+
+
+		_ALL_STATE_NAME__to__Monitor_State_Instance
+				.insert(_CURRENT_state_name,
+								A_STATE);
+
 
 		if (!is_CURRENTLY_WORKING_TRACE_SPECIFICATION())
 		{
