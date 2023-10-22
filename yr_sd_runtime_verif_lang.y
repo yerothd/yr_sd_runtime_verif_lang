@@ -50,6 +50,7 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	NOT_IN_AFTER_TOK
 %token	<opt_val>	NOT_IN_PRE_TOK
 %token	<opt_val>	NOT_IN_POST_TOK
+%token	<opt_val>	RECOVERY_SQL_QUERY_TOK
 %token	<opt_val>	BEGIN_STATE_TOK
 %token	<opt_val>	START_STATE_TOK
 %token	<opt_val>	ERROR_STATE_AUTO_TOK
@@ -61,6 +62,9 @@ YR_SPEC_STMT_MEALY_AUTOMATON *a_spec_stmt_ROOT;
 %token	<opt_val>	STATE_TOK
 
 %type	<opt_val>	mealy_automaton_spec
+%type	<opt_val>	recovery_sql_query_spec 
+%type	<opt_val>	final_state_auto_property_specification
+%type	<opt_val>	final_state_property_specification
 %type	<opt_val>	state_property_specification
 %type	<opt_val>	sut_edge_state_spec
 %type	<opt_val>	algebra_set_specification
@@ -130,6 +134,7 @@ not_in_set_trace : NOT_IN_SET_TRACE_TOK																						{ yr_printf("not_in
 									RIGHT_PARENTHESIS_TOK																								 
 								 ;
 sut_state_spec : state_property_specification	COLON_TOK algebra_set_specification				{ }
+							 | final_state_auto_property_specification COLON_TOK algebra_set_specification COLON_TOK recovery_sql_query_spec { }
 							 | final_state_property_specification	COLON_TOK algebra_set_specification	{ }
 							 | start_state_property_specification	COLON_TOK algebra_set_specification	{ }
 							 | start_state_property_specification							 
@@ -171,37 +176,43 @@ state_property_specification : STATE_TOK
 																RIGHT_PARENTHESIS_TOK										{ yr_printf($3->c_str(), "state_property_specification");
 																																					a_spec_stmt_ROOT->PROCESS_STATE_spec($3->c_str()); }
 														 ;
-final_state_property_specification :END_STATE_AUTO_TOK 
-														 					LEFT_PARENTHESIS_TOK 
-																				ALPHA_NUM_TOK 
-																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "END AUTO RECOVERY final_state_property_specification"); 
-																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
-																	 | END_STATE_TOK 
+final_state_property_specification : END_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
 																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "END final_state_property_specification"); 
-																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
-																	 | ERROR_STATE_AUTO_TOK 
-														 					LEFT_PARENTHESIS_TOK 
-																				ALPHA_NUM_TOK 
-																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "error AUTO RECOVERY final_state_property_specification"); 
 																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
 																	 | ERROR_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
 																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "error final_state_property_specification"); 
 																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
-																	 | FINAL_STATE_AUTO_TOK 
-														 					LEFT_PARENTHESIS_TOK 
-																				ALPHA_NUM_TOK 
-																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "FINAL AUTO RECOVERY final_state_property_specification"); 
-																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
 																	 | FINAL_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 
 																			RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "FINAL final_state_property_specification"); 
 																																					a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
-														 			 ;
+																	 ;
+final_state_auto_property_specification : END_STATE_AUTO_TOK 
+												 									 LEFT_PARENTHESIS_TOK 
+														 								 ALPHA_NUM_TOK 
+												 									 RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "final_state_auto_property_specification"); 
+																																								a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
+																				| ERROR_STATE_AUTO_TOK 
+												 									 LEFT_PARENTHESIS_TOK 
+													 									 ALPHA_NUM_TOK 
+												 									 RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "final_state_auto_property_specification"); 
+																																								a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
+																				| FINAL_STATE_AUTO_TOK 
+												 									 LEFT_PARENTHESIS_TOK 
+													 									 ALPHA_NUM_TOK 
+												 									 RIGHT_PARENTHESIS_TOK							{ yr_printf($3->c_str(), "final_state_auto_property_specification"); 
+																																								a_spec_stmt_ROOT->PROCESS_FINAL_STATE_spec($3->c_str()); }
+																				;
+recovery_sql_query_spec : RECOVERY_SQL_QUERY_TOK
+													 LEFT_PARENTHESIS_TOK 
+														 STRING_TOK											
+													 RIGHT_PARENTHESIS_TOK						{ yr_printf($3->c_str(), "recovery_sql_query_spec"); }
+												;
 start_state_property_specification : START_STATE_TOK 
 														 					LEFT_PARENTHESIS_TOK 
 																				ALPHA_NUM_TOK 

@@ -19,6 +19,7 @@ IN_SQL_EVENT_LOG			"in_sql_event_log"
 NOT_IN_SQL_EVENT_LOG	"not_in_sql_event_log"
 in_set_trace					"in_set_trace"
 not_in_set_trace			"not_in_set_trace"
+recovery_sql_query		"recovery_sql_query"
 in_before							"IN_BEFORE"
 in_after							"IN_AFTER"
 in_pre								"IN_PRE"
@@ -36,7 +37,7 @@ final_state						"FINAL_STATE"
 begin_state						"BEGIN_STATE"
 start_state						"START_STATE"
 state									"STATE"
-string								"'"[ \t\n\.?_a-zA-Z0-9]*"'"
+string								"'"[ \t\n\.?_,()`a-zA-Z0-9]*"'"
 alpha_num							[_a-zA-Z]+[_0-9a-zA-Z]*
 slash									"/"
 dot										"."
@@ -66,6 +67,7 @@ r_brace								"}"
 {notin_after}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_AFTER_TOK; }
 {notin_pre}							{ yylval.opt_val = new std::string(yytext); return NOT_IN_PRE_TOK; }
 {notin_post}						{ yylval.opt_val = new std::string(yytext); return NOT_IN_POST_TOK; }
+{recovery_sql_query}		{ yylval.opt_val = new std::string(yytext); return RECOVERY_SQL_QUERY_TOK; }
 {end_state_auto}				{ yylval.opt_val = new std::string(yytext); return END_STATE_AUTO_TOK; }
 {end_state}							{ yylval.opt_val = new std::string(yytext); return END_STATE_TOK; }
 {error_state_auto}			{ yylval.opt_val = new std::string(yytext); return ERROR_STATE_AUTO_TOK; }
