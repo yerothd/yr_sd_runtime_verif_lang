@@ -1,5 +1,5 @@
 
-### AUTHOR: XAVIER NOUMBISSI NOUNDOU (yeroth.d at gmail.com).
+### AUTHOR: XAVIER NOUNDOU (yeroth.d at gmail.com).
 
 
 COMMERCIAL CASE (Computer-Aided Software Engineering) tool
